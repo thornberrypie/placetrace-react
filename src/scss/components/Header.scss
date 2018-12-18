@@ -1,0 +1,44 @@
+$logo-height: 60px;
+
+.header {
+  background-color: $color-black;
+  font-size: calc(10px + 2vmin);
+
+
+  &-logolink {
+    display: block;
+    display: flex;
+    color: $color-white;
+    flex-direction: row;
+    text-decoration: none;
+
+    &:hover {
+      .header-logo {
+        animation: App-logo-spin 0.5s ease-in-out;
+      }
+    }
+  }
+
+  &-logo {
+    height: $logo-height;
+    margin: $space;
+  }
+
+  &-title {
+    color: $color-white;
+    font-size: 2.5rem;
+    line-height: $logo-height;
+    padding: $space $space $space 0;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

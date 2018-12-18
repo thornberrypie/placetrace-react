@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import logo from '../images/world.png';
 
-function Header(props) {
+const Header = (props) => {
   return (
     <header className="header">
-      <h1>{props.title}</h1>
-      <img src={props.logo} className="logo" alt="logo" />
+      <a href="/" className="header-logolink">
+        <img src={logo} className="header-logo" alt="logo" />
+        <h1 className="header-title">{props.title}</h1>
+      </a>
     </header>
   )
 }
