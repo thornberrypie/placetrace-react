@@ -15,7 +15,15 @@ class Game extends Component {
   getCountryImage() {
     return (
       svgData.map((svgData, index) => {
-        return <CountryImage key={index} id={svgData.id} svg={svgData.svg} />
+        return (
+          <CountryImage
+            key = {index}
+            id = {svgData.id}
+            svgPaths = {svgData.svg}
+            size = "1024"
+            color = "#79c050"
+          />
+        )
       })
     )
   }

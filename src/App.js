@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import './scss/App.scss';
-import Header from './components/Header';
-import Game from './components/Game';
+import React, { Component } from 'react'
+import './scss/App.scss'
+import Header from './components/Header'
+import Game from './components/Game'
 
 
 class App extends Component {
@@ -17,4 +17,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
