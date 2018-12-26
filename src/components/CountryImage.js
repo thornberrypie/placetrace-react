@@ -4,7 +4,6 @@ class CountryImage extends Component {
   render() {
     return (
       <div className="country-image">
-        <p>{this.props.id}</p>
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,18 @@
+.game {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+}
 .country {
   height: 333px;
   width: 333px;
+
+  &-image {
+    max-width: 100%;
+
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+  }
 }
