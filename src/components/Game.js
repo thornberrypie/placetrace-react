@@ -7,23 +7,25 @@ class Game extends Component {
     return (
       <section className="game">
         <h2>Guess the country</h2>
-        <div className="country">{ this.getCountryImage() }</div>
+        <div className="country">{ this.getCountryImage('ae') }</div>
       </section>
     )
   }
 
-  getCountryImage() {
+  getCountryImage(countryCode) {
     return (
       svgData.map((svgData, index) => {
-        return (
-          <CountryImage
-            key = {index}
-            id = {svgData.id}
-            svgPaths = {svgData.svg}
-            size = "1024"
-            color = "#79c050"
-          />
-        )
+        if(svgData.id == countryCode) {
+          return (
+            <CountryImage
+              key = {index}
+              id = {svgData.id}
+              svgPaths = {svgData.svg}
+              size = "1024"
+              color = "#79c050"
+            />
+          )
+        }
       })
     )
   }

@@ -3,5 +3,6 @@ body {
 }
 
 .wrapper {
+  min-width: $content-min-width;
   text-align: center;
 }

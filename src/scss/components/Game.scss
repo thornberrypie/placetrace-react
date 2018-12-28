@@ -4,8 +4,8 @@
   display: flex;
 }
 .country {
-  height: 333px;
-  width: 333px;
+  height: $content-min-width;
+  width: $content-min-width;
 
   &-image {
     max-width: 100%;

@@ -2,15 +2,18 @@ $logo-height: 60px;
 
 .header {
   background-color: $color-black;
-  font-size: calc(10px + 2vmin);
-
 
   &-logolink {
     display: block;
     display: flex;
     color: $color-white;
     flex-direction: row;
+    justify-content: center;
     text-decoration: none;
+
+    @include bp(md) {
+      justify-content: flex-start;
+    }
 
     &:hover {
       .header-logo {
@@ -26,11 +29,15 @@ $logo-height: 60px;
 
   &-title {
     color: $color-white;
-    font-size: 2.5rem;
+    font-size: 1.7rem;
     line-height: $logo-height;
     padding: $space $space $space 0;
     text-transform: uppercase;
     white-space: nowrap;
+
+    @include bp(xs) {
+      font-size: 2.5rem;
+    }
   }
 }
 
