@@ -7,8 +7,8 @@ class Game extends Component {
   constructor() {
     super();
     this.state = {
-      countryCode: 'ad',
-      countryName: 'Andorra'
+      countryCode: '',
+      countryName: ''
     }
   }
 
@@ -16,14 +16,14 @@ class Game extends Component {
     fetch('https://restcountries.eu/rest/v2/all')
       .then(response => response.json())
       .then(data =>
-        console.log(data.length + ' countries')
+        this.setCountryState(data)
       )
   }
 
-  getCountryImage(countryCode) {
+  getCountryImage() {
     return (
       svgData.map((svgData, index) => {
-        if(svgData.id === countryCode) {
+        if(svgData.id === this.state.countryCode) {
           return (
             <CountryImage
               key = {index}
@@ -38,13 +38,24 @@ class Game extends Component {
     )
   }
 
+  setCountryState(data) {
+    //let currentIndex = Math.floor((Math.random() * data.length))
+    let currentIndex = Math.floor((Math.random() * 5))
+    let country = data[currentIndex]
+    this.setState({
+      countryCode: country.alpha2Code.toLowerCase(),
+      countryName: country.name
+    })
+  }
+
   render() {
     return (
       <section className="game">
         <h2>Guess the country</h2>
-        { this.state.data }
+        <p>{this.state.countryName}</p>
+        <p>{this.state.countryCode}</p>
         <div className="country">
-          { this.getCountryImage(this.state.countryCode) }
+          {this.getCountryImage()}
         </div>
       </section>
     )
