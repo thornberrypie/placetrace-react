@@ -12,7 +12,7 @@ class CountryImage extends Component {
           viewBox={"0 0 "+this.props.size+" "+this.props.size}
           preserveAspectRatio="xMidYMid meet">
           <g
-            transform={"translate(0.000000,"+this.props.size+") scale(0.100000,-0.100000)"}
+            transform={"translate(0,"+this.props.svgTranslate+") scale("+this.props.svgScale+")"}
             fill={this.props.color}
             stroke="none"
             dangerouslySetInnerHTML={this.displayPaths()}>
