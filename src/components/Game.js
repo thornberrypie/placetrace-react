@@ -32,11 +32,10 @@ class Game extends Component {
       countryName: '',
       countryPopulation: '',
       countryRegion: '',
-      currentCountry: '',
+      countryData: {},
       gameStarted: false,
       mapColor: '#79c050',
-      score: 0,
-      selectedCountry: '',
+      score: 0
     }
   }
 
@@ -51,25 +50,44 @@ class Game extends Component {
   getCountries() {
     fetch('https://restcountries.eu/rest/v2/all')
     .then(response => response.json())
-    .then(data =>{
-      this.startNewRound(data)
+    .then(data => {
+      this.setState({
+        countryData: data
+      })
+      this.startNewRound()
     })
   }
 
   refreshCountry = event => {
-    this.getCountries()
+    this.startNewRound()
   }
 
-  startNewRound(data) {
-    //let currentIndex = Math.floor((Math.random() * data.length))
-    let currentIndex = Math.floor((Math.random() * SvgData.length))
-    let country = data[currentIndex]
+  startNewRound() {
+    // Create random country code from SVG JSON data
+    let randomIndex = Math.floor((Math.random() * SvgData.length))
+    let randomCountryCode = SvgData[randomIndex].id
+
+    // Match up random country code with data item from API
+    let selectedIndex = -1;
+    this.state.countryData.forEach(function(item, index){
+      //console.log(item.alpha2Code.toLowerCase())
+      if(randomCountryCode === item.alpha2Code.toLowerCase()) {
+        selectedIndex = index;
+      }
+    })
+
+    // Start again if we can't find a match
+    if(selectedIndex === -1) {
+      this.startNewRound()
+      return false
+    }
+
+    let country = this.state.countryData[selectedIndex]
     this.setState({
       countryCapital: country.capital,
       countryCode: country.alpha2Code.toLowerCase(),
       countryName: country.name,
-      countryRegion: country.region,
-
+      countryRegion: country.region
     })
   }
 
