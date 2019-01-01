@@ -1,7 +1,12 @@
 .game {
   align-items: center;
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &-area {
+    min-height: $content-min-width;
+  }
 }
 .country {
   height: $content-min-width;

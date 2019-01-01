@@ -2,9 +2,9 @@ import React from 'react';
 
 const RegionButton = (props) => {
   return (
-    <button className="button button--region">
+    <li className="button button--region">
       {props.regionName}
-    </button>
+    </li>
   )
 }
 

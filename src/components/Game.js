@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 import CountryImage from './CountryImage'
 import GameIntro from './GameIntro'
-import RegionButton from './RegionButton'
+import RegionButtons from './RegionButtons'
 import SvgData from '../data/svgCountries.json'
+
+const Regions = [
+    'Africa',
+    'Americas',
+    'Asia',
+    'Europe',
+    'Oceania'
+]
 
 class Game extends Component {
 
@@ -18,13 +26,6 @@ class Game extends Component {
       countryRegion: '',
       gameStarted: false,
       mapColor: '#79c050',
-      regions: [
-          'Africa',
-          'Americas',
-          'Asia',
-          'Europe',
-          'Oceania'
-      ],
       score: 0
     }
   }
@@ -34,7 +35,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    //this.getCountries()
+    this.getCountries()
   }
 
   getCountries() {
@@ -82,6 +83,7 @@ class Game extends Component {
           // and Antarctica, as it's the only country in the 'Polar' region
           const countriesToIgnore = ['aq','um']
           if(countriesToIgnore.includes(code) || region === '') {
+            console.log('not that one')
             this.getCountries()
           }
 
@@ -103,15 +105,6 @@ class Game extends Component {
     )
   }
 
-  showRegionButton(regionName) {
-    console.log(regionName)
-    return <RegionButton regionName={regionName}/>
-  }
-
-  showRegionButtons() {
-    this.state.regions.forEach(this.showRegionButton)
-  }
-
   startGame() {
     this.setState({
       gameStarted: true
@@ -121,17 +114,21 @@ class Game extends Component {
   render() {
     return (
       <section className="game">
-        <GameIntro
-          countryName={this.state.countryName}
-          countryCode={this.state.countryCode}
-          gameStarted={this.state.gameStarted}
-        />
         <button onClick={this.clickStartButton} className={this.state.gameStarted ? "hidden" : "button button--start"}>Start Game</button>
-        <button onClick={this.refreshCountry} className={this.state.gameStarted ? "button button--refresh" : "hidden"}>Refresh</button>
-        <div className="country">
-          {this.showCountryImage()}
-          <div className="region">
-            {this.showRegionButtons()}
+        <div className={this.state.gameStarted ? "country" : "hidden"}>
+          <GameIntro
+            countryName={this.state.countryName}
+            countryCode={this.state.countryCode}
+          />
+          <button onClick={this.refreshCountry} className="button button--refresh">Refresh</button>
+          <div className="game-area">
+            {this.showCountryImage()}
+          </div>
+          <div className="game-form">
+          <div className="game-regions">
+            <p className="game-text">Which country is this?</p>
+            <RegionButtons regions={Regions}/>
+          </div>
           </div>
         </div>
       </section>
