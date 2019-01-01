@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import CountryImage from './CountryImage'
-import CountryDropdown from './CountryDropdown'
+//import CountryDropdown from './CountryDropdown'
 import GameIntro from './GameIntro'
+import Select from 'react-select';
 import RegionButtons from './RegionButtons'
 import SvgData from '../data/svgCountries.json'
 
-const Regions = [
+const regions = [
     'Africa',
     'Americas',
     'Asia',
     'Europe',
     'Oceania'
+]
+
+const countryList = [
+  {value: 'ad', label: 'Andorra'},
+  {value: 'ao', label: 'Angola'},
+  {value: 'ag', label: 'Antigua and Barbuda'}
 ]
 
 class Game extends Component {
@@ -28,7 +35,8 @@ class Game extends Component {
       currentCountry: '',
       gameStarted: false,
       mapColor: '#79c050',
-      score: 0
+      score: 0,
+      selectedCountry: '',
     }
   }
 
@@ -131,8 +139,12 @@ class Game extends Component {
                 countryName={this.state.countryName}
                 countryCode={this.state.countryCode}
               />
-              <CountryDropdown/>
-              <RegionButtons regions={Regions}/>
+              <Select
+                value={this.state.selectedOption}
+                //onChange={this.handleChange}
+                options={countryList}
+              />
+              <RegionButtons regions={regions}/>
             </div>
           </form>
         </div>
