@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CountryImage from './CountryImage'
+import CountryDropdown from './CountryDropdown'
 import GameIntro from './GameIntro'
 import RegionButtons from './RegionButtons'
 import SvgData from '../data/svgCountries.json'
@@ -24,6 +25,7 @@ class Game extends Component {
       countryName: '',
       countryPopulation: '',
       countryRegion: '',
+      currentCountry: '',
       gameStarted: false,
       mapColor: '#79c050',
       score: 0
@@ -41,16 +43,16 @@ class Game extends Component {
   getCountries() {
     fetch('https://restcountries.eu/rest/v2/all')
     .then(response => response.json())
-    .then(data =>
-      this.setCountryState(data)
-    )
+    .then(data =>{
+      this.startNewRound(data)
+    })
   }
 
   refreshCountry = event => {
     this.getCountries()
   }
 
-  setCountryState(data) {
+  startNewRound(data) {
     //let currentIndex = Math.floor((Math.random() * data.length))
     let currentIndex = Math.floor((Math.random() * SvgData.length))
     let country = data[currentIndex]
@@ -58,7 +60,8 @@ class Game extends Component {
       countryCapital: country.capital,
       countryCode: country.alpha2Code.toLowerCase(),
       countryName: country.name,
-      countryRegion: country.region
+      countryRegion: country.region,
+
     })
   }
 
@@ -83,7 +86,6 @@ class Game extends Component {
           // and Antarctica, as it's the only country in the 'Polar' region
           const countriesToIgnore = ['aq','um']
           if(countriesToIgnore.includes(code) || region === '') {
-            console.log('not that one')
             this.getCountries()
           }
 
@@ -116,20 +118,23 @@ class Game extends Component {
       <section className="game">
         <button onClick={this.clickStartButton} className={this.state.gameStarted ? "hidden" : "button button--start"}>Start Game</button>
         <div className={this.state.gameStarted ? "country" : "hidden"}>
-          <GameIntro
-            countryName={this.state.countryName}
-            countryCode={this.state.countryCode}
-          />
-          <button onClick={this.refreshCountry} className="button button--refresh">Refresh</button>
+          <div className="game-buttons">
+            <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
+          </div>
           <div className="game-area">
             {this.showCountryImage()}
           </div>
-          <div className="game-form">
-          <div className="game-regions">
-            <p className="game-text">Which country is this?</p>
-            <RegionButtons regions={Regions}/>
-          </div>
-          </div>
+          <form className="game-form">
+            <div className="game-regions">
+              <p className="game-text">Which country is this?</p>
+              <GameIntro
+                countryName={this.state.countryName}
+                countryCode={this.state.countryCode}
+              />
+              <CountryDropdown/>
+              <RegionButtons regions={Regions}/>
+            </div>
+          </form>
         </div>
       </section>
     )

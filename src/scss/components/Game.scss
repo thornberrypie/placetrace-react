@@ -2,23 +2,28 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  padding: $space*2 0;
   position: relative;
 
-  &-area {
-    min-height: $content-min-width;
+  @include bp(xs) {
+    padding-top: $space*3;
   }
-}
-.country {
-  height: $content-min-width;
-  width: $content-min-width;
 
-  &-image {
-    max-width: 100%;
+  &-area {
+    min-height: $content-min-width/1.5;
 
-    svg {
-      height: auto;
-      max-width: 100%;
-      vertical-align: top;
+    @include bp(md) {
+      min-height: $content-min-width;
     }
+  }
+
+  &-form {
+    padding: $space;
+  }
+
+  &-buttons {
+    position: absolute;
+    right: $space/2;
+    top: $space/2;
   }
 }

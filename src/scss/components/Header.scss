@@ -29,14 +29,15 @@ $logo-height: 3.33rem;
 
   &-title {
     color: $color-white;
-    font-size: 1.7rem;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 1.8rem;
     line-height: $logo-height;
     padding: $space $space $space 0;
     text-transform: uppercase;
     white-space: nowrap;
 
     @include bp(xs) {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
     }
   }
 }
