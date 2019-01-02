@@ -7,12 +7,12 @@ class CountryImage extends Component {
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
-          width={this.props.size}
-          height={this.props.size}
-          viewBox={"0 0 "+this.props.size+" "+this.props.size}
+          width={this.getSvgSize()}
+          height={this.getSvgSize()}
+          viewBox={"0 0 "+this.getSvgSize()+" "+this.getSvgSize()}
           preserveAspectRatio="xMidYMid meet">
           <g
-            transform={"translate(0,"+this.props.svgTranslate+") scale("+this.props.svgScale+")"}
+            transform={"translate(0,"+this.getSvgTranslate()+") scale("+this.getSvgScale()+")"}
             fill={this.props.color}
             stroke="none"
             dangerouslySetInnerHTML={this.displayPaths()}>
@@ -24,6 +24,19 @@ class CountryImage extends Component {
 
   displayPaths() {
     return {__html: this.props.svgPaths};
+  }
+
+  getSvgScale() {
+    return this.props.countryCode === 'at' ? '0.5,-0.5' : '0.1,-0.1'
+  }
+
+  getSvgSize() {
+    return 1024;
+  }
+
+  getSvgTranslate() {
+    // Add exception for Austria, SVG paths are defined differently
+    return this.props.countryCode === 'at' ? 750 : this.getSvgSize()
   }
 }
 
