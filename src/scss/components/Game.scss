@@ -99,13 +99,13 @@
   &-form {
     align-self: flex-start;
     display: block;
-    padding: $space $space*2;
+    padding: $space/2 $space*2;
     text-align: left;
     width: calc(100% - #{$space*2});
   }
 
   &-select {
-    padding: $space/2 0;
+    padding: 0 0 $space/2;
 
     div {
       border-color: $color-blue;
@@ -124,10 +124,6 @@
       margin: 0 auto;
       max-width: 220px;
       text-align: center;
-    }
-
-    &-list {
-
     }
 
     @include bp(md) {

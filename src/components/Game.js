@@ -16,7 +16,7 @@ class Game extends Component {
       countryName: '',
       countryPopulation: '',
       countryRegion: '',
-      countriesData: {},
+      countriesData: [],
       gameStarted: false,
       score: 0
     }
@@ -113,6 +113,7 @@ class Game extends Component {
             <CountrySelect
                 value={this.state.selectedOption}
                 countries ={this.state.countriesData}
+                currentRegion = {this.state.countryRegion}
               />
           </form>
         </div>

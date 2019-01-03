@@ -12,8 +12,10 @@ const Regions = [
 class CountrySelect extends Component {
   constructor() {
     super()
+    this.countryMenu = React.createRef()
     this.state = {
-      countrySelectData: []
+      countrySelectData: [],
+      selectedRegion: ''
     }
   }
 
@@ -47,7 +49,19 @@ class CountrySelect extends Component {
 
   handleRegionClick = e => {
     e.preventDefault();
-    this.buildSelectMenu(e.target.innerText)
+    let selectedRegion = e.target.innerText
+
+    if(selectedRegion === this.state.selectedRegion) {
+      selectedRegion = '';
+    }
+    
+    this.setState({
+      selectedRegion: selectedRegion
+    })
+
+    this.countryMenu.current.focus()
+
+    this.buildSelectMenu(selectedRegion)
   }
 
   render() {
@@ -57,16 +71,17 @@ class CountrySelect extends Component {
           value={this.props.value}
           onChange={this.handleCountryChange}
           options={this.state.countrySelectData}
+          ref={this.countryMenu}
         />
         <div className="game-filter">
           <div className="game-filter-buttons">
-            <p className="game-text">Filter list by region</p>
+            <p className="game-text">Filter countries by region</p>
             <div className="game-filter-list">
               {Regions.map(function(region, index){
                 return(
                   <button
                     key={index}
-                    className="button button--filter"
+                    className={this.state.selectedRegion === region ? "button button--filter button--selected" : "button button--filter"}
                     onClick={this.handleRegionClick}
                   >{region}</button>
                 )
