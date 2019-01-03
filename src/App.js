@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './scss/App.scss'
-import Header from './components/Header'
+import Header from './components/_Header'
 import Game from './components/Game'
 
 

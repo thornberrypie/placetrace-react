@@ -2,16 +2,7 @@ import React, { Component } from 'react'
 import CountryImage from './CountryImage'
 import CountrySelect from './CountrySelect'
 import GameIntro from './_GameIntro'
-import RegionButtons from './_RegionButtons'
 import SvgData from '../data/svgCountries.json'
-
-const regions = [
-    'Africa',
-    'Americas',
-    'Asia',
-    'Europe',
-    'Oceania'
-]
 
 class Game extends Component {
   constructor() {
@@ -112,10 +103,6 @@ class Game extends Component {
   render() {
     return (
       <section className={this.state.gameStarted ? "game game--started" : "game game--ready"}>
-        <div className="game-buttons">
-          <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
-          <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
-        </div>
         <GameIntro/>
         <div className="game-area">
           <div className="game-country">
@@ -123,17 +110,15 @@ class Game extends Component {
           </div>
           <form className="game-form">
             <p className="game-text">Which country is this?</p>
-            <div className="game-select">
-              <CountrySelect
+            <CountrySelect
                 value={this.state.selectedOption}
                 countries ={this.state.countriesData}
               />
-            </div>
-            <div className="game-filter">
-              <RegionButtons regions={regions}/>
-            </div>
-
           </form>
+        </div>
+        <div className="game-buttons">
+          <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
+          <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
         </div>
         <div>
           <p>{this.state.countryName}</p>

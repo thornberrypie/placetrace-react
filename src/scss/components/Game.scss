@@ -33,6 +33,10 @@
   }
 
   &-buttons {
+    border-top: 1px solid $color-light-grey;
+    border-bottom: 1px solid $color-light-grey;
+    margin: $space/2 0;
+    padding: $space/2 0;
     text-align: right;
     width: 100%;
   }
@@ -41,7 +45,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    padding-top: $space;
+    margin-top: $space/2;
     width: 100%;
 
     @include bp(xs) {
@@ -51,6 +55,7 @@
   }
 
   &-country {
+    margin-bottom: $space;
     min-height: $content-min-width/1.5;
     text-align: center;
 
@@ -80,8 +85,8 @@
     }
 
     @include bp(lg) {
-      height: $content-min-width*1.5;
-      width: $content-min-width*1.5;
+      height: $content-min-width*1.4;
+      width: $content-min-width*1.4;
     }
 
     svg {
@@ -101,6 +106,14 @@
 
   &-select {
     padding: $space/2 0;
+
+    div {
+      border-color: $color-blue;
+    }
+
+    svg {
+      fill: $color-blue;
+    }
   }
 
   &-filter {
