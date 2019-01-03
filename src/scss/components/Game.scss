@@ -2,14 +2,55 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: $space*2 0;
+  padding: $space*3 0 $space;
   position: relative;
 
+  &--ready {
+    .game-area,
+    .button--refresh {
+      display: none;
+    }
+  }
+
+  &--started {
+    .button--start,
+    .game-intro {
+      display: none;
+    }
+  }
+
   @include bp(xs) {
-    padding-top: $space*3;
+    justify-content: space-between;
+  }
+
+  &-intro {
+    padding: 0 $space;
+    text-align: left;
+
+    @include bp(sm) {
+      max-width: 75%;
+    }
+  }
+
+  &-buttons {
+    position: absolute;
+    right: $space/2;
+    top: $space/2;
   }
 
   &-area {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @include bp(xs) {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+
+  &-country {
     min-height: $content-min-width/1.5;
 
     @include bp(md) {
@@ -17,13 +58,34 @@
     }
   }
 
-  &-form {
-    padding: $space;
+  &-image {
+    height: $content-min-width/1.5;
+    width: $content-min-width/1.5;
+    max-width: 100%;
+
+    @include bp(sm) {
+      height: $content-min-width/1.25;
+      width: $content-min-width/1.25;
+    }
+
+    @include bp(md) {
+      height: $content-min-width;
+      width: $content-min-width;
+    }
+
+    svg {
+      height: auto;
+      max-width: 100%;
+      vertical-align: top;
+    }
   }
 
-  &-buttons {
-    position: absolute;
-    right: $space/2;
-    top: $space/2;
+  &-form {
+    padding: $space;
+    text-align: left;
+  }
+
+  &-select {
+    
   }
 }

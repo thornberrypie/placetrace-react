@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class CountryImage extends Component {
   render() {
     return (
-      <div className="country-image">
+      <div className="game-image">
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"

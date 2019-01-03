@@ -29,11 +29,10 @@ $logo-height: 3.33rem;
 
   &-title {
     color: $color-white;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: $font-heading;
     font-size: 1.8rem;
     line-height: $logo-height;
     padding: $space $space $space 0;
-    text-transform: uppercase;
     white-space: nowrap;
 
     @include bp(xs) {

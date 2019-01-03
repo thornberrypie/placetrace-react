@@ -2,10 +2,10 @@ import React from 'react';
 
 const RegionButtons = (props) => {
   return (
-    <ul className="region-buttons">
+    <ul className="game-filter-buttons">
       {props.regions.map(function(region, index){
         return(
-          <li className="region-button" key={index}>
+          <li className="button button--filter" key={index}>
             {region}
           </li>
         )

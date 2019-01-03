@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import CountryImage from './CountryImage'
-//import CountryDropdown from './CountryDropdown'
+import CountrySelect from './CountrySelect'
 import GameIntro from './GameIntro'
-import Select from 'react-select';
 import RegionButtons from './RegionButtons'
 import SvgData from '../data/svgCountries.json'
 
@@ -14,11 +13,7 @@ const regions = [
     'Oceania'
 ]
 
-const countryList = [
-  {value: 'ad', label: 'Andorra'},
-  {value: 'ao', label: 'Angola'},
-  {value: 'ag', label: 'Antigua and Barbuda'}
-]
+
 
 class Game extends Component {
 
@@ -60,10 +55,10 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    this.getCountries()
+    this.getCountriesFromAPI()
   }
 
-  getCountries() {
+  getCountriesFromAPI() {
     fetch('https://restcountries.eu/rest/v2/all')
     .then(response => response.json())
     .then(data => {
@@ -72,6 +67,10 @@ class Game extends Component {
       })
       this.startNewRound()
     })
+  }
+
+  getCountryList() {
+
   }
 
   startNewRound() {
@@ -119,29 +118,32 @@ class Game extends Component {
 
   render() {
     return (
-      <section className="game">
-        <button onClick={this.clickStartButton} className={this.state.gameStarted ? "hidden" : "button button--start"}>Start Game</button>
-        <div className={this.state.gameStarted ? "country" : "hidden"}>
-          <div className="game-buttons">
-            <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
-          </div>
-          <div className="game-area">
+      <section className={this.state.gameStarted ? "game game--started" : "game game--ready"}>
+        <GameIntro/>
+
+        <div className="game-buttons">
+          <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
+          <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
+        </div>
+        <div className="game-area">
+
+          <div className="game-country">
             {this.showCountryImage()}
           </div>
           <form className="game-form">
-            <div className="game-regions">
-              <p className="game-text">Which country is this?</p>
-              <GameIntro
-                countryName={this.state.countryName}
-                countryCode={this.state.countryCode}
-              />
-              <Select
+            <p className="game-text">Which country is this?</p>
+            <p>{this.state.countryName}</p>
+            <p>{this.state.countryCode}</p>
+            <div class="game-select">
+              <CountrySelect
                 value={this.state.selectedOption}
-                //onChange={this.handleChange}
-                options={countryList}
+                countries ={this.state.countriesData}
               />
+            </div>
+            <div class="game-filter">
               <RegionButtons regions={regions}/>
             </div>
+
           </form>
         </div>
       </section>
