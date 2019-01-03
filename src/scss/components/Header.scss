@@ -2,6 +2,12 @@ $logo-height: 3.33rem;
 
 .header {
   background-color: $color-black;
+  text-align: center;
+
+  &-inner {
+    margin: 0 auto;
+    max-width: $content-max-width;
+  }
 
   &-logolink {
     display: block;

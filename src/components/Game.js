@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import CountryImage from './CountryImage'
 import CountrySelect from './CountrySelect'
-import GameIntro from './GameIntro'
-import RegionButtons from './RegionButtons'
+import GameIntro from './_GameIntro'
+import RegionButtons from './_RegionButtons'
 import SvgData from '../data/svgCountries.json'
 
 const regions = [
@@ -13,10 +13,7 @@ const regions = [
     'Oceania'
 ]
 
-
-
 class Game extends Component {
-
   constructor() {
     super()
     this.state = {
@@ -69,10 +66,6 @@ class Game extends Component {
     })
   }
 
-  getCountryList() {
-
-  }
-
   startNewRound() {
     // Create random country code from SVG JSON data
     let randomIndex = Math.floor((Math.random() * SvgData.length))
@@ -108,43 +101,43 @@ class Game extends Component {
     })
   }
 
-  clickStartButton = event => {
+  clickStartButton = e => {
     this.startGame()
   }
 
-  refreshCountry = event => {
+  refreshCountry = e => {
     this.startNewRound()
   }
 
   render() {
     return (
       <section className={this.state.gameStarted ? "game game--started" : "game game--ready"}>
-        <GameIntro/>
-
         <div className="game-buttons">
           <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
           <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
         </div>
+        <GameIntro/>
         <div className="game-area">
-
           <div className="game-country">
             {this.showCountryImage()}
           </div>
           <form className="game-form">
             <p className="game-text">Which country is this?</p>
-            <p>{this.state.countryName}</p>
-            <p>{this.state.countryCode}</p>
-            <div class="game-select">
+            <div className="game-select">
               <CountrySelect
                 value={this.state.selectedOption}
                 countries ={this.state.countriesData}
               />
             </div>
-            <div class="game-filter">
+            <div className="game-filter">
               <RegionButtons regions={regions}/>
             </div>
 
           </form>
+        </div>
+        <div>
+          <p>{this.state.countryName}</p>
+          <p>{this.state.countryCode}</p>
         </div>
       </section>
     )
