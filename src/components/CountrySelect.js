@@ -54,7 +54,7 @@ class CountrySelect extends Component {
     if(selectedRegion === this.state.selectedRegion) {
       selectedRegion = '';
     }
-    
+
     this.setState({
       selectedRegion: selectedRegion
     })
@@ -64,28 +64,36 @@ class CountrySelect extends Component {
     this.buildSelectMenu(selectedRegion)
   }
 
+  showRegions() {
+    return(
+      Regions.map(function(region, index){
+        return(
+          <button
+            key={index}
+            className={this.state.selectedRegion === region ? "button button--filter button--selected" : "button button--filter"}
+            onClick={this.handleRegionClick}
+          >{region}</button>
+        )
+      }, this)
+    )
+  }
+
   render() {
     return (
       <div className="game-select">
-        <Select
-          value={this.props.value}
-          onChange={this.handleCountryChange}
-          options={this.state.countrySelectData}
-          ref={this.countryMenu}
-        />
+        <div className="form-select">
+          <Select
+            value={this.props.value}
+            onChange={this.handleCountryChange}
+            options={this.state.countrySelectData}
+            ref={this.countryMenu}
+          />
+        </div>
         <div className="game-filter">
           <div className="game-filter-buttons">
             <p className="game-text">Filter countries by region</p>
             <div className="game-filter-list">
-              {Regions.map(function(region, index){
-                return(
-                  <button
-                    key={index}
-                    className={this.state.selectedRegion === region ? "button button--filter button--selected" : "button button--filter"}
-                    onClick={this.handleRegionClick}
-                  >{region}</button>
-                )
-              }, this)}
+              {this.showRegions()}
             </div>
           </div>
         </div>

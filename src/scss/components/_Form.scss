@@ -1,0 +1,35 @@
+.form {
+  display: block;
+  padding: $space/2 $space*2;
+  text-align: left;
+
+  &-select {
+    div {
+      border-color: $border-color;
+      color: $color-text;
+
+      &:hover,
+      &:focus {
+        div {
+          border-color: $color-blue;
+        }
+      }
+    }
+  }
+
+  &-text {
+    .text-icon {
+      display: none;
+    }
+  }
+
+  @include bp(xs) {
+    &-text {
+      text-align: left;
+
+      .text-icon {
+        display: inline;
+      }
+    }
+  }
+}

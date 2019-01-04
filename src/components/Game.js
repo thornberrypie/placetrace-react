@@ -22,6 +22,34 @@ class Game extends Component {
     }
   }
 
+  componentDidMount() {
+    this.getCountriesFromAPI()
+  }
+
+  getCountriesFromAPI() {
+    fetch('https://restcountries.eu/rest/v2/all')
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        countriesData: data
+      })
+      this.startNewRound()
+    })
+  }
+
+  setCountryState(index) {
+    let country = this.state.countriesData[index]
+    this.setState({
+      countryCapital: country.capital,
+      countryCode: country.alpha2Code.toLowerCase(),
+      //countrycurrency: country.currency.
+      //countrylanguage: country.language.
+      countryName: country.name,
+      countrypopulation: country.population,
+      countryRegion: country.region
+    })
+  }
+
   showCountryImage() {
     return (
       SvgData.map((data, index) => {
@@ -40,21 +68,6 @@ class Game extends Component {
         }
       })
     )
-  }
-
-  componentDidMount() {
-    this.getCountriesFromAPI()
-  }
-
-  getCountriesFromAPI() {
-    fetch('https://restcountries.eu/rest/v2/all')
-    .then(response => response.json())
-    .then(data => {
-      this.setState({
-        countriesData: data
-      })
-      this.startNewRound()
-    })
   }
 
   startNewRound() {
@@ -77,13 +90,7 @@ class Game extends Component {
       return false
     }
 
-    let country = this.state.countriesData[selectedIndex]
-    this.setState({
-      countryCapital: country.capital,
-      countryCode: country.alpha2Code.toLowerCase(),
-      countryName: country.name,
-      countryRegion: country.region
-    })
+    this.setCountryState(selectedIndex)
   }
 
   startGame() {
@@ -108,8 +115,18 @@ class Game extends Component {
           <div className="game-country">
             {this.showCountryImage()}
           </div>
-          <form className="game-form">
-            <p className="game-text">Which country is this?</p>
+          <form className="form game-form">
+            <div className="game-clues">
+              <p className="game-text form-text">Clues will be displayed here after each incorrect guess</p>
+              <ul>
+                <li id="cluePopulation"></li>
+                <li id="clueSize"></li>
+                <li id="clueCurrency"></li>
+                <li id="clueLanguage"></li>
+                <li id="clueCapital"></li>
+              </ul>
+            </div>
+            <p className="form-text game-text"><span class="text-icon">&larr;</span> Which country is this?</p>
             <CountrySelect
                 value={this.state.selectedOption}
                 countries ={this.state.countriesData}

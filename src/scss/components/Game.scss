@@ -33,8 +33,8 @@
   }
 
   &-buttons {
-    border-top: 1px solid $color-light-grey;
-    border-bottom: 1px solid $color-light-grey;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
     margin: $space/2 0;
     padding: $space/2 0;
     text-align: right;
@@ -98,27 +98,34 @@
 
   &-form {
     align-self: flex-start;
-    display: block;
-    padding: $space/2 $space*2;
-    text-align: left;
     width: calc(100% - #{$space*2});
+  }
+
+  &-clues {
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    color: $color-grey;
+    margin-bottom: $space*2;
+    min-height: $space;
+    padding: $space $space/2;
+
+    .game-text {
+      color: $color-text;
+      font-size: 0.7rem;
+    }
   }
 
   &-select {
     padding: 0 0 $space/2;
-
-    div {
-      border-color: $color-blue;
-    }
-
-    svg {
-      fill: $color-blue;
-    }
   }
 
   &-filter {
     padding-top: $space;
     text-align: center;
+
+    @include bp(xs) {
+      padding-top: $space*2;
+    }
 
     &-buttons {
       margin: 0 auto;
@@ -137,6 +144,7 @@
   }
 
   &-text {
+    color: $color-green-text;
     font-size: 0.9rem;
     padding-bottom: $space/2;
     text-align: center;
