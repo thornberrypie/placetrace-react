@@ -18,7 +18,7 @@ $logo-height: 3.33rem;
     text-decoration: none;
 
     @include bp(md) {
-      justify-content: flex-start;
+      //justify-content: flex-start;
     }
 
     &:hover {

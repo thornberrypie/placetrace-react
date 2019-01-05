@@ -102,12 +102,9 @@
   }
 
   &-clues {
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
     color: $color-grey;
     margin-bottom: $space*2;
     min-height: $space;
-    padding: $space $space/2;
 
     .game-text {
       color: $color-text;
@@ -130,6 +127,7 @@
     &-buttons {
       margin: 0 auto;
       max-width: 220px;
+
       text-align: center;
     }
 
@@ -143,11 +141,19 @@
     }
   }
 
+
+
   &-text {
     color: $color-green-text;
     font-size: 0.9rem;
     padding-bottom: $space/2;
     text-align: center;
+
+    @include bp(xs) {
+      &.alignWithMenu {
+        right: 0;
+      }
+    }
 
     @include bp(md) {
       text-align: left;

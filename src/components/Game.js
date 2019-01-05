@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
 import CountryImage from './CountryImage'
-import CountrySelect from './CountrySelect'
 import GameIntro from './_GameIntro'
+import Select from 'react-select';
 import SvgData from '../data/svgCountries.json'
+
+const Regions = [
+    'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
+]
 
 class Game extends Component {
   constructor() {
     super()
+    this.countryMenu = React.createRef()
     this.state = {
       colorGreen: '#79c050',
+      countryArea: 'km<sup>2</sup>',
       countryCapital: '',
       countryCode: '',
       countryCurrency: '',
@@ -16,14 +22,38 @@ class Game extends Component {
       countryName: '',
       countryPopulation: '',
       countryRegion: '',
+      countrySelectData: [],
       countriesData: [],
       gameStarted: false,
-      score: 0
+      levelsPlayed: 0,
+      numGuesses: 0,
+      score: 0,
+      selectedRegion: ''
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getCountriesFromAPI()
+  }
+
+  buildSelectMenu(selectedRegion) {
+    const countries = this.state.countriesData
+    let countrySelectData = [];
+    // Create new array of objects for select menu
+    Object.keys(countries).forEach(function(key) {
+      let country = countries[key]
+      // If region is selected allow only that region's countries
+      if(selectedRegion && selectedRegion !== country.region) {
+        return
+      }
+      countrySelectData.push({
+        value: country.alpha2Code.toLowerCase(),
+        label: country.name
+      })
+    })
+    this.setState({
+      countrySelectData: countrySelectData
+    })
   }
 
   getCountriesFromAPI() {
@@ -33,6 +63,7 @@ class Game extends Component {
       this.setState({
         countriesData: data
       })
+      this.buildSelectMenu()
       this.startNewRound()
     })
   }
@@ -70,6 +101,20 @@ class Game extends Component {
     )
   }
 
+  showRegions() {
+    return(
+      Regions.map(function(region, index){
+        return(
+          <button
+            key={index}
+            className={this.state.selectedRegion === region ? "button button--filter button--selected" : "button button--filter"}
+            onClick={this.handleRegionClick}
+          >{region}</button>
+        )
+      }, this)
+    )
+  }
+
   startNewRound() {
     // Create random country code from SVG JSON data
     let randomIndex = Math.floor((Math.random() * SvgData.length))
@@ -103,6 +148,29 @@ class Game extends Component {
     this.startGame()
   }
 
+  handleCountryChange = e => {
+    var selectedCountry = e.value
+    var currentCode = this.state.countryCode
+    console.log(selectedCountry)
+  }
+
+  handleRegionClick = e => {
+    e.preventDefault();
+    let selectedRegion = e.target.innerText
+
+    this.setState({
+      selectedRegion: selectedRegion === this.state.selectedRegion ? '' : selectedRegion
+    })
+    // Use this syntax for functional child components that have props
+    // this.setState((prevState, props) => ({
+    //   selectedRegion: selectedRegion === prevState.selectedRegion ? '' : selectedRegion
+    // }));
+
+    this.countryMenu.current.focus()
+
+    this.buildSelectMenu(selectedRegion)
+  }
+
   refreshCountry = e => {
     this.startNewRound()
   }
@@ -117,21 +185,33 @@ class Game extends Component {
           </div>
           <form className="form game-form">
             <div className="game-clues">
-              <p className="game-text form-text">Clues will be displayed here after each incorrect guess</p>
               <ul>
                 <li id="cluePopulation"></li>
-                <li id="clueSize"></li>
+                <li id="clueArea"></li>
                 <li id="clueCurrency"></li>
                 <li id="clueLanguage"></li>
                 <li id="clueCapital"></li>
               </ul>
             </div>
-            <p className="form-text game-text"><span class="text-icon">&larr;</span> Which country is this?</p>
-            <CountrySelect
-                value={this.state.selectedOption}
-                countries ={this.state.countriesData}
-                currentRegion = {this.state.countryRegion}
-              />
+            <p className="form-text game-text alignWithMenu"><span className="text-icon">&larr;</span> Which country is this?</p>
+            <div className="game-select">
+              <div className="form-select">
+                <Select
+                  value={this.state.selectedOption}
+                  onChange={this.handleCountryChange}
+                  options={this.state.countrySelectData}
+                  ref={this.countryMenu}
+                />
+              </div>
+              <div className="game-filter">
+                <div className="game-filter-buttons alignWithMenu">
+                  <p className="game-text">Filter countries by region</p>
+                  <div className="game-filter-list">
+                    {this.showRegions()}
+                  </div>
+                </div>
+              </div>
+            </div>
           </form>
         </div>
         <div className="game-buttons">
