@@ -14,7 +14,7 @@ class Game extends Component {
     this.countryMenu = React.createRef()
     this.state = {
       colorGreen: '#79c050',
-      countryArea: 'km<sup>2</sup>',
+      countryArea: '',
       countryCapital: '',
       countryCode: '',
       countryCurrency: '',
@@ -40,7 +40,7 @@ class Game extends Component {
     const countries = this.state.countriesData
     let countrySelectData = [];
     // Create new array of objects for select menu
-    Object.keys(countries).forEach(function(key) {
+    Object.keys(countries).forEach((key) => {
       let country = countries[key]
       // If region is selected allow only that region's countries
       if(selectedRegion && selectedRegion !== country.region) {
@@ -70,13 +70,27 @@ class Game extends Component {
 
   setCountryState(index) {
     let country = this.state.countriesData[index]
+    let currency = '';
+    let language = '';
+
+    country.currencies.forEach((item) => {
+      currency += item.name + ', '
+    })
+    currency = currency !== '' ? currency.slice(0, -2) : ''
+
+    country.languages.forEach((item) => {
+      language += item.name + ', '
+    })
+    language = language !== '' ? language.slice(0, -2) : ''
+
     this.setState({
+      countryArea: country.area,
       countryCapital: country.capital,
       countryCode: country.alpha2Code.toLowerCase(),
-      //countrycurrency: country.currency.
-      //countrylanguage: country.language.
+      countryCurrency: currency,
+      countryLanguage: language,
       countryName: country.name,
-      countrypopulation: country.population,
+      countryPopulation: country.population,
       countryRegion: country.region
     })
   }
@@ -122,7 +136,7 @@ class Game extends Component {
 
     // Match up random country code with data item from API
     let selectedIndex = -1;
-    this.state.countriesData.forEach(function(item, index){
+    this.state.countriesData.forEach((item, index) => {
       //console.log(item.alpha2Code.toLowerCase())
       if(randomCountryCode === item.alpha2Code.toLowerCase()) {
         selectedIndex = index;
@@ -144,14 +158,29 @@ class Game extends Component {
     })
   }
 
+  updateGuessCount() {
+
+  }
+
   clickStartButton = e => {
     this.startGame()
   }
 
   handleCountryChange = e => {
-    var selectedCountry = e.value
-    var currentCode = this.state.countryCode
-    console.log(selectedCountry)
+    let numGuesses = this.state.numGuesses + 1
+
+    if(e.value === this.state.countryCode) {
+      console.log('right');
+    } else {
+      console.log('wrong');
+    }
+
+    this.setState({
+      numGuesses: numGuesses
+    })
+
+
+    console.log(this.state.numGuesses)
   }
 
   handleRegionClick = e => {
@@ -164,7 +193,7 @@ class Game extends Component {
     // Use this syntax for functional child components that have props
     // this.setState((prevState, props) => ({
     //   selectedRegion: selectedRegion === prevState.selectedRegion ? '' : selectedRegion
-    // }));
+    // }))
 
     this.countryMenu.current.focus()
 
@@ -186,15 +215,15 @@ class Game extends Component {
           <form className="form game-form">
             <div className="game-clues">
               <ul>
-                <li id="cluePopulation"></li>
-                <li id="clueArea"></li>
-                <li id="clueCurrency"></li>
-                <li id="clueLanguage"></li>
-                <li id="clueCapital"></li>
+                {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation}</li> : ''}
+                {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea}</li> : ''}
+                {this.state.numGuesses > 2 ? <li><span className="label">Currency: </span>{this.state.countryCurrency}</li> : ''}
+                {this.state.numGuesses > 3 ? <li><span className="label">Language: </span>{this.state.countryLanguage}</li> : ''}
+                {this.state.numGuesses > 4 ? <li><span className="label">Capital City: </span>{this.state.countryCapital}</li> : ''}
               </ul>
             </div>
-            <p className="form-text game-text alignWithMenu"><span className="text-icon">&larr;</span> Which country is this?</p>
             <div className="game-select">
+              <p className="form-text game-text alignWithMenu"><span className="text-icon">&larr;</span> Which country is this?</p>
               <div className="form-select">
                 <Select
                   value={this.state.selectedOption}
@@ -217,10 +246,6 @@ class Game extends Component {
         <div className="game-buttons">
           <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
           <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
-        </div>
-        <div>
-          <p>{this.state.countryName}</p>
-          <p>{this.state.countryCode}</p>
         </div>
       </section>
     )

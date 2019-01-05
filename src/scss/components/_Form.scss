@@ -1,6 +1,6 @@
 .form {
   display: block;
-  padding: $space/2 $space*2;
+  padding: $space/2 0;
   text-align: left;
 
   &-select {
@@ -24,6 +24,8 @@
   }
 
   @include bp(xs) {
+    padding: $space/2 $space*2;
+
     &-text {
       text-align: left;
 
