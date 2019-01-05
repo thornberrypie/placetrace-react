@@ -14,10 +14,12 @@ class Game extends Component {
     this.countryMenu = React.createRef()
     this.state = {
       colorGreen: '#79c050',
+      correctAnswer: false,
       countryArea: '',
       countryCapital: '',
       countryCode: '',
       countryCurrency: '',
+      countryCurrencySymbol: '',
       countryLanguage: '',
       countryName: '',
       countryPopulation: '',
@@ -27,6 +29,7 @@ class Game extends Component {
       gameStarted: false,
       levelsPlayed: 0,
       numGuesses: 0,
+      roundEnded: false,
       score: 0,
       selectedRegion: ''
     }
@@ -70,8 +73,9 @@ class Game extends Component {
 
   setCountryState(index) {
     let country = this.state.countriesData[index]
-    let currency = '';
-    let language = '';
+    let currency = ''
+    let currencySymbol = country.currencies[0].symbol
+    let language = ''
 
     country.currencies.forEach((item) => {
       currency += item.name + ', '
@@ -88,6 +92,7 @@ class Game extends Component {
       countryCapital: country.capital,
       countryCode: country.alpha2Code.toLowerCase(),
       countryCurrency: currency,
+      countryCurrencySymbol: currencySymbol,
       countryLanguage: language,
       countryName: country.name,
       countryPopulation: country.population,
@@ -171,14 +176,16 @@ class Game extends Component {
 
     if(e.value === this.state.countryCode) {
       console.log('right');
+      this.setState({
+        correctAnswer: true
+      })
     } else {
-      console.log('wrong');
+
     }
 
     this.setState({
       numGuesses: numGuesses
     })
-
 
     console.log(this.state.numGuesses)
   }
@@ -197,11 +204,26 @@ class Game extends Component {
 
     this.countryMenu.current.focus()
 
-    this.buildSelectMenu(selectedRegion)
+    if(selectedRegion === this.state.selectedRegion) {
+      this.buildSelectMenu()
+    } else {
+      this.buildSelectMenu(selectedRegion)
+    }
   }
 
   refreshCountry = e => {
     this.startNewRound()
+  }
+
+  getCurrency() {
+    let c = this.state.countryCurrency
+    if(c === 'Bosnia and Herzegovina convertible mark') {
+      c = 'Mark'
+    }
+    if(c.indexOf('CFA franc') !== -1) {
+      c = 'CFA franc';
+    }
+    return c
   }
 
   render() {
@@ -215,15 +237,15 @@ class Game extends Component {
           <form className="form game-form">
             <div className="game-clues">
               <ul>
-                {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation}</li> : ''}
-                {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea}</li> : ''}
-                {this.state.numGuesses > 2 ? <li><span className="label">Currency: </span>{this.state.countryCurrency}</li> : ''}
+                {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation.toLocaleString('en')}</li> : ''}
+                {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea.toLocaleString('en')}</li> : ''}
+                {this.state.numGuesses > 2 ? <li><span className="label">Currency: </span><span className="symbol">{this.state.countryCurrencySymbol}</span>{this.getCurrency()}</li> : ''}
                 {this.state.numGuesses > 3 ? <li><span className="label">Language: </span>{this.state.countryLanguage}</li> : ''}
                 {this.state.numGuesses > 4 ? <li><span className="label">Capital City: </span>{this.state.countryCapital}</li> : ''}
               </ul>
             </div>
             <div className="game-select">
-              <p className="form-text game-text alignWithMenu"><span className="text-icon">&larr;</span> Which country is this?</p>
+              <p className="form-text game-text"><span className="text-icon">&larr;</span> Which country is this?</p>
               <div className="form-select">
                 <Select
                   value={this.state.selectedOption}

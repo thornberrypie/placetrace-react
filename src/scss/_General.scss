@@ -13,7 +13,7 @@ body {
 // Helpers
 .alignWithMenu {
   position: relative;
-  right: calc(#{$space} + 3px);
+  right: calc(#{$space} + 5px);
 
   @include bp(md) {
     right: 0;
