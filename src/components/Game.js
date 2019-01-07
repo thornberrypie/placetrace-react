@@ -31,6 +31,8 @@ class Game extends Component {
       numGuesses: 0,
       roundEnded: false,
       score: 0,
+      selectPlaceholder: 'Select a country...',
+      selectedCountryCode: '',
       selectedRegion: ''
     }
   }
@@ -42,6 +44,7 @@ class Game extends Component {
   buildSelectMenu(selectedRegion) {
     const countries = this.state.countriesData
     let countrySelectData = [];
+
     // Create new array of objects for select menu
     Object.keys(countries).forEach((key) => {
       let country = countries[key]
@@ -54,8 +57,12 @@ class Game extends Component {
         label: country.name
       })
     })
+
+    //this.state.selectPlaceholder
+    //console.log(countrySelectData)
+
     this.setState({
-      countrySelectData: countrySelectData
+      countrySelectData: countrySelectData,
     })
   }
 
@@ -69,6 +76,15 @@ class Game extends Component {
       this.buildSelectMenu()
       this.startNewRound()
     })
+  }
+
+  getCurrency() {
+    let c = this.state.countryCurrency
+    if(c.indexOf(' dollar') !== -1) c = 'Dollar'
+    if(c.indexOf(' franc') !== -1) c = 'Franc'
+    if(c.indexOf(' mark') !== -1) c = 'Mark'
+    if(c.indexOf(' pound') !== -1) c = 'Pound'
+    return c
   }
 
   setCountryState(index) {
@@ -98,6 +114,40 @@ class Game extends Component {
       countryPopulation: country.population,
       countryRegion: country.region
     })
+  }
+
+  setSelectedCountryState(event) {
+    let numGuesses = this.state.numGuesses + 1
+    let selectedCountryCode = event.value
+    console.log(selectedCountryCode)
+    let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
+    this.setState({
+      correctAnswer: correctAnswer,
+      numGuesses: numGuesses,
+      selectedCountryCode: event,
+    })
+  }
+
+  setRegionState(event) {
+    event.preventDefault()
+    let selectedRegion = event.target.innerText
+
+    this.setState({
+      selectedRegion: selectedRegion === this.state.selectedRegion ? '' : selectedRegion
+    })
+
+    // Use this syntax for functional child components that have props
+    // this.setState((prevState, props) => ({
+    //   selectedRegion: selectedRegion === prevState.selectedRegion ? '' : selectedRegion
+    // }))
+
+    if(selectedRegion === this.state.selectedRegion) {
+      this.buildSelectMenu()
+    } else {
+      this.buildSelectMenu(selectedRegion)
+    }
+
+    this.countryMenu.current.focus()
   }
 
   showCountryImage() {
@@ -142,7 +192,6 @@ class Game extends Component {
     // Match up random country code with data item from API
     let selectedIndex = -1;
     this.state.countriesData.forEach((item, index) => {
-      //console.log(item.alpha2Code.toLowerCase())
       if(randomCountryCode === item.alpha2Code.toLowerCase()) {
         selectedIndex = index;
       }
@@ -163,67 +212,20 @@ class Game extends Component {
     })
   }
 
-  updateGuessCount() {
-
-  }
-
   clickStartButton = e => {
     this.startGame()
   }
 
   handleCountryChange = e => {
-    let numGuesses = this.state.numGuesses + 1
-
-    if(e.value === this.state.countryCode) {
-      console.log('right');
-      this.setState({
-        correctAnswer: true
-      })
-    } else {
-
-    }
-
-    this.setState({
-      numGuesses: numGuesses
-    })
-
-    console.log(this.state.numGuesses)
+    this.setSelectedCountryState(e)
   }
 
   handleRegionClick = e => {
-    e.preventDefault();
-    let selectedRegion = e.target.innerText
-
-    this.setState({
-      selectedRegion: selectedRegion === this.state.selectedRegion ? '' : selectedRegion
-    })
-    // Use this syntax for functional child components that have props
-    // this.setState((prevState, props) => ({
-    //   selectedRegion: selectedRegion === prevState.selectedRegion ? '' : selectedRegion
-    // }))
-
-    this.countryMenu.current.focus()
-
-    if(selectedRegion === this.state.selectedRegion) {
-      this.buildSelectMenu()
-    } else {
-      this.buildSelectMenu(selectedRegion)
-    }
+    this.setRegionState(e)
   }
 
   refreshCountry = e => {
     this.startNewRound()
-  }
-
-  getCurrency() {
-    let c = this.state.countryCurrency
-    if(c === 'Bosnia and Herzegovina convertible mark') {
-      c = 'Mark'
-    }
-    if(c.indexOf('CFA franc') !== -1) {
-      c = 'CFA franc';
-    }
-    return c
   }
 
   render() {
@@ -246,21 +248,22 @@ class Game extends Component {
             </div>
             <div className="game-select">
               <p className="form-text game-text"><span className="text-icon">&larr;</span> Which country is this?</p>
-              <div className="form-select">
-                <Select
-                  value={this.state.selectedOption}
-                  onChange={this.handleCountryChange}
-                  options={this.state.countrySelectData}
-                  ref={this.countryMenu}
-                />
-              </div>
               <div className="game-filter">
-                <div className="game-filter-buttons alignWithMenu">
+                <div className="game-filter-buttons">
                   <p className="game-text">Filter countries by region</p>
-                  <div className="game-filter-list">
+                  <div className="game-filter-list clearfix">
                     {this.showRegions()}
                   </div>
                 </div>
+              </div>
+              <div className="form-select">
+                <Select
+                  value={this.state.selectedCountryCode}
+                  onChange={this.handleCountryChange}
+                  options={this.state.countrySelectData}
+                  placeholder={this.state.selectPlaceholder}
+                  ref={this.countryMenu}
+                />
               </div>
             </div>
           </form>

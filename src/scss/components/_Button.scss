@@ -22,7 +22,7 @@
 
   &--filter {
     display: inline-block;
-    margin: $space/4;
+    margin: $space/4 $space/2 $space/4 0;
     padding-top: calc((#{$space}/3) + 2px);
 
     &:first-child {

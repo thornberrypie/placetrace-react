@@ -24,7 +24,7 @@
   }
 
   &-intro {
-    padding: 0 $space;
+    padding: 0 $space $space*1.5;
     text-align: left;
 
     @include bp(sm) {
@@ -103,7 +103,7 @@
 
   &-clues {
     color: $color-green-text;
-    margin-bottom: $space;
+    margin-bottom: $space/2;
     min-height: $space;
 
     li {
@@ -140,28 +140,12 @@
     }
   }
 
-  &-select {
-    padding: $space/2 0;
-
-    .form-text {
-      padding-left: $space/1.6;
-    }
-  }
-
   &-filter {
     border-top: 1px solid $border-color;
-    margin-top: $space;
+    margin-bottom: $space;
     padding-top: $space;
 
-    @include bp(xs) {
-      //padding-top: $space*2;
-    }
-
     &-buttons {
-      margin: 0 auto;
-      max-width: 220px;
-      text-align: center;
-
       .game-text {
         padding-right: $space/4;
       }
@@ -181,11 +165,5 @@
     color: $color-green-text;
     font-size: 0.9rem;
     padding-bottom: $space/2;
-
-    @include bp(xs) {
-      &.alignWithMenu {
-        right: 0;
-      }
-    }
   }
 }
