@@ -1,3 +1,19 @@
+@mixin animation-appear($duration, $color) {
+  animation-name: animation-flash;
+  animation-duration: $duration;
+
+  @keyframes animation-flash {
+      from {
+        background: $color;
+        height: 0;
+      }
+      to {
+        background: default;
+        height: $space*1.5;
+      }
+  }
+}
+
 @mixin bp($class) {
   @if $class == xs { // 480px
     @media (min-width: 30em) { @content; }

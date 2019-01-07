@@ -43,20 +43,22 @@ class Game extends Component {
 
   buildSelectMenu(selectedRegion) {
     const countries = this.state.countriesData
-    let countrySelectData = [];
+    let selectedCountryCode = this.countryMenu.current.props.value.value
     let selectedCountryIsInRegion = false;
+    let countrySelectData = [];
 
     // Create new array of objects for select menu
     Object.keys(countries).forEach((key) => {
       let country = countries[key]
 
-      if(country === this.state.selectedCountryCode) {
-        selectedCountryIsInRegion = true;
-      }
       // If region is selected allow only that region's countries
       if(selectedRegion && selectedRegion !== country.region) {
         return
       }
+      if(country.alpha2Code.toLowerCase() === selectedCountryCode) {
+        selectedCountryIsInRegion = true;
+      }
+
       countrySelectData.push({
         value: country.alpha2Code.toLowerCase(),
         label: country.name
@@ -66,7 +68,6 @@ class Game extends Component {
     if(selectedRegion && !selectedCountryIsInRegion) {
       this.setPlaceholder(selectedRegion)
     }
-
     this.setState({
       countrySelectData: countrySelectData,
     })
@@ -132,18 +133,6 @@ class Game extends Component {
     })
   }
 
-  setSelectedCountryState(event) {
-    let numGuesses = this.state.numGuesses + 1
-    let selectedCountryCode = event.value
-    console.log(selectedCountryCode)
-    let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
-    this.setState({
-      correctAnswer: correctAnswer,
-      numGuesses: numGuesses,
-      selectedCountryCode: event,
-    })
-  }
-
   setRegionState(event) {
     event.preventDefault()
     let selectedRegion = event.target.innerText
@@ -159,6 +148,17 @@ class Game extends Component {
     }
 
     this.countryMenu.current.focus()
+  }
+
+  setSelectedCountryState(event) {
+    let numGuesses = this.state.numGuesses + 1
+    let selectedCountryCode = event.value
+    let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
+    this.setState({
+      correctAnswer: correctAnswer,
+      numGuesses: numGuesses,
+      selectedCountryCode: event,
+    })
   }
 
   showCountryImage() {
