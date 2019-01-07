@@ -44,10 +44,15 @@ class Game extends Component {
   buildSelectMenu(selectedRegion) {
     const countries = this.state.countriesData
     let countrySelectData = [];
+    let selectedCountryIsInRegion = false;
 
     // Create new array of objects for select menu
     Object.keys(countries).forEach((key) => {
       let country = countries[key]
+
+      if(country === this.state.selectedCountryCode) {
+        selectedCountryIsInRegion = true;
+      }
       // If region is selected allow only that region's countries
       if(selectedRegion && selectedRegion !== country.region) {
         return
@@ -58,8 +63,9 @@ class Game extends Component {
       })
     })
 
-    //this.state.selectPlaceholder
-    //console.log(countrySelectData)
+    if(selectedRegion && !selectedCountryIsInRegion) {
+      this.setPlaceholder(selectedRegion)
+    }
 
     this.setState({
       countrySelectData: countrySelectData,
@@ -85,6 +91,16 @@ class Game extends Component {
     if(c.indexOf(' mark') !== -1) c = 'Mark'
     if(c.indexOf(' pound') !== -1) c = 'Pound'
     return c
+  }
+
+  setPlaceholder(region) {
+    if(region === 'Americas') {
+      region = 'the Americas'
+    }
+    this.setState({
+      selectedCountryCode: '',
+      selectPlaceholder: 'Select a country in ' + region
+    })
   }
 
   setCountryState(index) {
@@ -135,11 +151,6 @@ class Game extends Component {
     this.setState({
       selectedRegion: selectedRegion === this.state.selectedRegion ? '' : selectedRegion
     })
-
-    // Use this syntax for functional child components that have props
-    // this.setState((prevState, props) => ({
-    //   selectedRegion: selectedRegion === prevState.selectedRegion ? '' : selectedRegion
-    // }))
 
     if(selectedRegion === this.state.selectedRegion) {
       this.buildSelectMenu()

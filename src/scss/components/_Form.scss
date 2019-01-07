@@ -24,7 +24,7 @@
   }
 
   @include bp(xs) {
-    padding: $space/2 $space $space $space/2;
+    padding: $space/2 0 $space $space*2;
 
     &-text {
       text-align: left;
