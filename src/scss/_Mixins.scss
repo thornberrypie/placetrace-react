@@ -5,16 +5,19 @@
   @keyframes animation-flash {
       from {
         background: $color;
-        height: 0;
+        color: $color-white;
       }
       to {
         background: default;
-        height: $space*1.5;
+        color: $color-blue-text;
       }
   }
 }
 
 @mixin bp($class) {
+  @if $class == xxs { // 384px
+    @media (min-width: 24em) { @content; }
+  }
   @if $class == xs { // 480px
     @media (min-width: 30em) { @content; }
   }

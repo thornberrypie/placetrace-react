@@ -248,7 +248,10 @@ class Game extends Component {
             {this.showCountryImage()}
           </div>
           <form className="form game-form">
+            <p className="text"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</p>
             <div className="game-clues">
+              <p class="text">It shares borders with ? countries and ...</p>
+              <p class="text">More clues will appear here after each guess</p>
               <ul>
                 {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation.toLocaleString('en')}</li> : ''}
                 {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea.toLocaleString('en')}</li> : ''}
@@ -257,25 +260,22 @@ class Game extends Component {
                 {this.state.numGuesses > 4 ? <li><span className="label">Capital City: </span>{this.state.countryCapital}</li> : ''}
               </ul>
             </div>
-            <div className="game-select">
-              <p className="form-text game-text"><span className="text-icon">&larr;</span> Which country is this?</p>
-              <div className="game-filter">
-                <div className="game-filter-buttons">
-                  <p className="game-text">Filter countries by region</p>
-                  <div className="game-filter-list clearfix">
-                    {this.showRegions()}
-                  </div>
+            <div className="game-section game-filter">
+              <div className="game-filter-buttons">
+                <p className="text">Filter countries by region</p>
+                <div className="game-filter-list clearfix">
+                  {this.showRegions()}
                 </div>
               </div>
-              <div className="form-select">
-                <Select
-                  value={this.state.selectedCountryCode}
-                  onChange={this.handleCountryChange}
-                  options={this.state.countrySelectData}
-                  placeholder={this.state.selectPlaceholder}
-                  ref={this.countryMenu}
-                />
-              </div>
+            </div>
+            <div className="game-select">
+              <Select
+                value={this.state.selectedCountryCode}
+                onChange={this.handleCountryChange}
+                options={this.state.countrySelectData}
+                placeholder={this.state.selectPlaceholder}
+                ref={this.countryMenu}
+              />
             </div>
           </form>
         </div>

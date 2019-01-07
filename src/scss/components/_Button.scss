@@ -1,23 +1,28 @@
 .button {
   border: 1px solid $color-blue;
   border-radius: $border-radius;
-  color: $color-green-text;
+  color: $color-blue-text;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 600;
   line-height: 1;
-  padding: $space/3 $space/2 $space/3;
+  padding: $space/2.5 $space/2 $space/3;
 
   &:hover {
     border-color: $color-green;
+    color: $color-green-text;
   }
 
   &:focus,
   &--selected {
     background-color: $color-green;
-    border-color: $color-green;
     color: $color-white;
     outline: none;
+
+    &:hover {
+      border-color: $color-white;
+      color: $color-white;
+    }
   }
 
   &--filter {
@@ -32,5 +37,25 @@
     &:last-child {
       margin-right: 0;
     }
+  }
+}
+
+.game-filter-buttons {
+  max-width: 86%;
+
+  @include bp(xxs) {
+    max-width: 63%;
+  }
+
+  @include bp(xs) {
+    max-width: 100%;
+  }
+
+  @include bp(sm) {
+    max-width: 76%;
+  }
+
+  @include bp(md) {
+    max-width: 100%;
   }
 }

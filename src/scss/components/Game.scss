@@ -4,6 +4,7 @@
   flex-direction: column;
   padding: $space;
   position: relative;
+  text-align: left;
 
   &--ready {
     .game-area,
@@ -23,24 +24,6 @@
     justify-content: space-between;
   }
 
-  &-intro {
-    padding: 0 $space $space*1.5;
-    text-align: left;
-
-    @include bp(sm) {
-      max-width: 75%;
-    }
-  }
-
-  &-buttons {
-    border-top: 1px solid $border-color;
-    border-bottom: 1px solid $border-color;
-    margin: 0 0 $space/2;
-    padding: $space/2 0;
-    text-align: right;
-    width: 100%;
-  }
-
   &-area {
     align-items: flex-start;
     display: flex;
@@ -54,8 +37,38 @@
     }
   }
 
+  &-buttons {
+    margin-top: $space;
+    text-align: right;
+    width: 100%;
+  }
+
+  &-clues {
+    min-height: $space/2;
+
+    li {
+      @include animation-appear(0.5s, $color-blue);
+      display: block;
+      font-family: $font-heading;
+      line-height: 1.5;
+      padding: $space/3 0;
+    }
+
+    .label {
+      display: inline-block;
+      font-family: $font-main;
+      font-size: 0.9rem;
+      min-width: 6em;
+    }
+
+    .symbol {
+      color: $color-blue;
+      padding-right: $space/3;
+    }
+  }
+
   &-country {
-    //margin-bottom: $space;
+    margin-bottom: $space;
     min-height: $content-min-width/1.5;
     text-align: center;
 
@@ -66,6 +79,11 @@
     @include bp(md) {
       min-height: $content-min-width;
     }
+  }
+
+  &-form {
+    margin-top: $space;
+    width: 100%;
   }
 
   &-image {
@@ -96,69 +114,17 @@
     }
   }
 
-  &-form {
-    //width: calc(100% - #{$space*2});
-    width: 100%;
-  }
+  &-intro {
+    padding: 0 $space $space*1.5;
 
-  &-clues {
-    color: $color-green-text;
-    min-height: $space;
-    padding-bottom: $space;
-
-    li {
-      @include animation-appear(0.5s, $color-blue);
-      display: block;
-      font-family: $font-heading;
-      line-height: 1.5;
-      padding: $space/3 0;
-
-      &:last-child {
-        border-bottom: 1px solid $border-color;
-      }
-    }
-
-    .label {
-      display: block;
-      font-family: $font-main;
-      font-size: 0.9rem;
-      min-width: 6em;
-
-      @include bp(sm) {
-        display: inline-block;
-      }
-    }
-
-    .symbol {
-      color: $color-blue;
-      padding-right: $space/2;
+    @include bp(sm) {
+      max-width: 75%;
     }
   }
 
-  &-filter {
+  &-section {
     border-top: 1px solid $border-color;
     margin-bottom: $space;
     padding-top: $space;
-
-    &-buttons {
-      .game-text {
-        padding-right: $space/4;
-      }
-    }
-
-    @include bp(md) {
-      text-align: left;
-
-      .game-filter-buttons {
-        max-width: 100%;
-        text-align: left;
-      }
-    }
-  }
-
-  &-text {
-    color: $color-green-text;
-    font-size: 0.9rem;
-    padding-bottom: $space/2;
   }
 }
