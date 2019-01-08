@@ -18,6 +18,7 @@ class Game extends Component {
     this.state = {
       correctAnswer: false,
       countryArea: '',
+      countryBorders: [],
       countryCapital: '',
       countryCode: '',
       countryCurrency: '',
@@ -94,9 +95,9 @@ class Game extends Component {
   }
 
   getCountryBorders() {
-    let numBorders = 2
-    return numBorders +' '+ 'countries'
-
+    let borders = this.state.countryBorders;
+    let bordersText = borders.length === 1 ? '1 other country' : borders.length+' other countries'
+    return bordersText
   }
 
   getCurrency() {
@@ -136,6 +137,7 @@ class Game extends Component {
 
     this.setState({
       countryArea: country.area,
+      countryBorders: country.borders,
       countryCapital: country.capital,
       countryCode: country.alpha2Code.toLowerCase(),
       countryCurrency: currency,
@@ -271,8 +273,8 @@ class Game extends Component {
           <form className="form game-form" id="game-form">
             <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>
             <div className="game-clues">
-              <p className="text">It shares borders with {this.getCountryBorders()} and has a land area of ?km<sup>2</sup></p>
-              <p className="text text--blue">More clues will appear here after each guess</p>
+              <p className="text">It shares borders with {this.getCountryBorders()}</p>
+              <p className={this.state.numGuesses === 0 ? "text text--blue" : "hidden"}>More clues will appear here after each guess</p>
               <ul>
                 {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation.toLocaleString('en')}</li> : ''}
                 {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea.toLocaleString('en')}</li> : ''}

@@ -41,21 +41,9 @@
 }
 
 .game-filter-buttons {
-  max-width: 86%;
+  max-width: 18em;
 
-  @include bp(xxs) {
-    max-width: 63%;
-  }
-
-  @include bp(xs) {
-    max-width: 100%;
-  }
-
-  @include bp(sm) {
-    max-width: 100%;
-  }
-
-  @include bp(md) {
+  @include bp(lg) {
     max-width: 100%;
   }
 }
