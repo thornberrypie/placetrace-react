@@ -3,8 +3,8 @@ import React from 'react';
 const GameIntro = (props) => {
   return (
     <div className="game-intro">
-      <h1>Have fun while learning all about the world you live in!</h1>
-      <h2>Using the latest web app technology and up-to-date statistics Place-Trace will teach you all about countries using data about geography, population, languages, currency and more.</h2>
+      <h1>Have fun while learning all about the world you live&nbsp;in!</h1>
+      <h2>Using the latest web app technology and statistics Place-Trace will use geography to teach you about all the countries.</h2>
     </div>
   )
 }

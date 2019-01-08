@@ -15,25 +15,25 @@
 }
 
 @mixin bp($class) {
-  @if $class == xxs { // 384px
-    @media (min-width: 24em) { @content; }
+  @if $class == xxs {
+    @media (min-width: $bp-xxs) { @content; }
   }
-  @if $class == xs { // 480px
-    @media (min-width: 30em) { @content; }
+  @if $class == xs {
+    @media (min-width: $bp-xs) { @content; }
   }
-  @if $class == sm { // 540px
-    @media (min-width: 33.75em) { @content; }
+  @if $class == sm {
+    @media (min-width: $bp-sm) { @content; }
   }
-  @else if $class == md { // 768px
-    @media (min-width: 48em) { @content; }
+  @else if $class == md {
+    @media (min-width: $bp-md) { @content; }
   }
-  @else if $class == lg { // 992px
-    @media (min-width: 62em) { @content; }
+  @else if $class == lg {
+    @media (min-width: $bp-lg) { @content; }
   }
-  @else if $class == xl { // 1200px
-    @media (min-width: 75em) { @content; }
+  @else if $class == xl {
+    @media (min-width: $bp-xl) { @content; }
   }
   @else {
-    @warn "Breakpoint mixin supports: xs, sm, md, lg and xl";
+    @warn "Breakpoint mixin supports: xxs, xs, sm, md, lg and xl";
   }
 }

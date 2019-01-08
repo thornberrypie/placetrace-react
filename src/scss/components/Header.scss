@@ -6,7 +6,11 @@ $logo-height: 3.33rem;
 
   &-inner {
     margin: 0 auto;
-    max-width: $content-max-width;
+    max-width: $content-mid-width;
+
+    @include bp(sm) {
+      margin: 0;
+    }
   }
 
   &-logolink {
@@ -17,8 +21,8 @@ $logo-height: 3.33rem;
     justify-content: center;
     text-decoration: none;
 
-    @include bp(md) {
-      //justify-content: flex-start;
+    @include bp(sm) {
+      justify-content: flex-start;
     }
 
     &:hover {

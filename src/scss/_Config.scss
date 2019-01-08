@@ -14,7 +14,15 @@ $font-main: "Trebuchet MS", Helvetica, sans-serif;
 $border-color: $color-light-grey;
 $border-radius: 4px;
 
-$content-max-width: 68em;
 $content-min-width: 18em;
+$content-mid-width: 31em;
+$content-max-width: 68em;
 
 $space: 1rem;
+
+$bp-xxs: 24em; // 384px
+$bp-xs: 30em; // 480px
+$bp-sm: 33.75em; // 540px
+$bp-md: 48em; // 768px
+$bp-lg: 62em; // 992px
+$bp-xl: 75em; // 1200px

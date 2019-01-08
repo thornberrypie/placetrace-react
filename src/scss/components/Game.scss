@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: $space;
+  padding: $space $space/2;
   position: relative;
   text-align: left;
 
@@ -22,6 +22,7 @@
 
   @include bp(xs) {
     justify-content: space-between;
+    padding: $space*2 $space;
   }
 
   &-area {
@@ -29,7 +30,7 @@
     display: flex;
     flex-direction: column;
     margin-top: $space/2;
-    width: 100%;
+    margin: $space/2 auto 0;
 
     @include bp(xs) {
       flex-direction: row;
@@ -48,6 +49,7 @@
 
     li {
       @include animation-appear(0.5s, $color-blue);
+      color: $color-blue-text;
       display: block;
       font-family: $font-heading;
       line-height: 1.5;
@@ -65,25 +67,30 @@
       color: $color-blue;
       padding-right: $space/3;
     }
+
+    .text {
+      max-width: 80%;
+    }
+  }
+
+  &-form {
+    margin: 0 auto;
+    padding: $space;
   }
 
   &-country {
-    margin-bottom: $space;
+    margin: 0 auto $space;
     min-height: $content-min-width/1.5;
     text-align: center;
 
     @include bp(sm) {
+      margin: 0 0 $space;
       min-width: 40%;
     }
 
     @include bp(md) {
       min-height: $content-min-width;
     }
-  }
-
-  &-form {
-    margin-top: $space;
-    width: 100%;
   }
 
   &-image {
@@ -118,7 +125,8 @@
     padding: 0 $space $space*1.5;
 
     @include bp(sm) {
-      max-width: 75%;
+      max-width: $content-mid-width;
+      padding: 0;
     }
   }
 

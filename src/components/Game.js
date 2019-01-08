@@ -4,6 +4,9 @@ import GameIntro from './_GameIntro'
 import Select from 'react-select';
 import SvgData from '../data/svgCountries.json'
 
+const apiAllCountries = 'https://restcountries.eu/rest/v2/all'
+const colorGreen = '#79c050'
+const maxNumGuesses = 5
 const Regions = [
     'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
 ]
@@ -13,7 +16,6 @@ class Game extends Component {
     super()
     this.countryMenu = React.createRef()
     this.state = {
-      colorGreen: '#79c050',
       correctAnswer: false,
       countryArea: '',
       countryCapital: '',
@@ -42,14 +44,14 @@ class Game extends Component {
   }
 
   buildSelectMenu(selectedRegion) {
-    const countries = this.state.countriesData
+    const Countries = this.state.countriesData
     let selectedCountryCode = this.countryMenu.current.props.value.value
     let selectedCountryIsInRegion = false;
     let countrySelectData = [];
 
     // Create new array of objects for select menu
-    Object.keys(countries).forEach((key) => {
-      let country = countries[key]
+    Object.keys(Countries).forEach((key) => {
+      let country = Countries[key]
 
       // If region is selected allow only that region's countries
       if(selectedRegion && selectedRegion !== country.region) {
@@ -73,8 +75,14 @@ class Game extends Component {
     })
   }
 
+  finishRound() {
+    this.setState({
+      roundEnded: true
+    })
+  }
+
   getCountriesFromAPI() {
-    fetch('https://restcountries.eu/rest/v2/all')
+    fetch(apiAllCountries)
     .then(response => response.json())
     .then(data => {
       this.setState({
@@ -83,6 +91,12 @@ class Game extends Component {
       this.buildSelectMenu()
       this.startNewRound()
     })
+  }
+
+  getCountryBorders() {
+    let numBorders = 2
+    return numBorders +' '+ 'countries'
+
   }
 
   getCurrency() {
@@ -129,7 +143,8 @@ class Game extends Component {
       countryLanguage: language,
       countryName: country.name,
       countryPopulation: country.population,
-      countryRegion: country.region
+      countryRegion: country.region,
+      numGuesses: 0
     })
   }
 
@@ -152,6 +167,12 @@ class Game extends Component {
 
   setSelectedCountryState(event) {
     let numGuesses = this.state.numGuesses + 1
+    // Finish round if player has no more guesses left
+    console.log(numGuesses)
+    if(numGuesses >= maxNumGuesses) {
+      this.finishRound()
+      return
+    }
     let selectedCountryCode = event.value
     let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
     this.setState({
@@ -171,7 +192,7 @@ class Game extends Component {
               id = {data.id}
               countryCode = {this.state.countryCode}
               svgPaths = {data.svg}
-              color = {this.state.colorGreen}
+              color = {colorGreen}
             />
           )
         } else {
@@ -247,11 +268,11 @@ class Game extends Component {
           <div className="game-country">
             {this.showCountryImage()}
           </div>
-          <form className="form game-form">
-            <p className="text"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</p>
+          <form className="form game-form" id="game-form">
+            <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>
             <div className="game-clues">
-              <p class="text">It shares borders with ? countries and ...</p>
-              <p class="text">More clues will appear here after each guess</p>
+              <p className="text">It shares borders with {this.getCountryBorders()} and has a land area of ?km<sup>2</sup></p>
+              <p className="text text--blue">More clues will appear here after each guess</p>
               <ul>
                 {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation.toLocaleString('en')}</li> : ''}
                 {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea.toLocaleString('en')}</li> : ''}
@@ -262,7 +283,7 @@ class Game extends Component {
             </div>
             <div className="game-section game-filter">
               <div className="game-filter-buttons">
-                <p className="text">Filter countries by region</p>
+                <p className="text text--green">Filter countries by region:</p>
                 <div className="game-filter-list clearfix">
                   {this.showRegions()}
                 </div>
