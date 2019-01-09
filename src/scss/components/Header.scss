@@ -1,5 +1,3 @@
-$logo-height: 3.33rem;
-
 .header {
   background-color: $color-black;
   text-align: center;
@@ -8,8 +6,8 @@ $logo-height: 3.33rem;
     margin: 0 auto;
     max-width: $content-mid-width;
 
-    @include bp(sm) {
-      margin: 0;
+    @include bp(xs) {
+      //margin: $space;
     }
   }
 
@@ -27,14 +25,14 @@ $logo-height: 3.33rem;
 
     &:hover {
       .header-logo {
-        animation: App-logo-spin 0.5s ease-in-out;
+        @include animation-spin(0.5s);
       }
     }
   }
 
   &-logo {
     height: $logo-height;
-    margin: $space;
+    margin: $space $space/2 $space 0;
   }
 
   &-title {
@@ -48,14 +46,5 @@ $logo-height: 3.33rem;
     @include bp(xs) {
       font-size: 2.2rem;
     }
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }

@@ -7,14 +7,14 @@
   text-align: left;
 
   &--ready {
-    .game-area,
-    .button--refresh {
+    .button.button--refresh,
+    .game-area {
       display: none;
     }
   }
 
   &--started {
-    .button--start,
+    .button.button--start,
     .game-intro {
       display: none;
     }
@@ -36,12 +36,6 @@
       flex-direction: row;
       justify-content: space-between;
     }
-  }
-
-  &-buttons {
-    margin-top: $space;
-    text-align: right;
-    width: 100%;
   }
 
   &-clues {
@@ -118,7 +112,7 @@
   }
 
   &-intro {
-    padding: 0 $space $space*1.5;
+    padding: $space/2 $space $space*1.5;
 
     @include bp(sm) {
       max-width: $content-mid-width;

@@ -1,7 +1,6 @@
-sup {
-  font-size: 0.6rem;
-  position: relative;
-  top: -$space/4;
+body {
+  color: $color-text;
+  font-family: $font-main;
 }
 
 h1, h2, h3 {
@@ -12,18 +11,22 @@ h1 {
   color: $color-green-text;
   font-family: $font-heading;
   font-size: 1.3rem;
-  max-width: 90%;
   padding-bottom: $space;
 }
 
 h2 {
   font-size: 1.2rem;
-  max-width: 90%;
 }
 
 h3 {
   font-size: 1.1rem;
   padding-bottom: $space/2;
+}
+
+sup {
+  font-size: 0.6rem;
+  position: relative;
+  top: -$space/4;
 }
 
 .text {

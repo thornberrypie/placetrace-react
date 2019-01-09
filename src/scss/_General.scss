@@ -1,8 +1,10 @@
-body {
-  color: $color-text;
-  font-family: $font-main;
+// Layout
+.wrapper {
+  min-width: $content-min-width;
+  text-align: center;
 }
 
+// Helper classes
 .clearfix:after {
   content: "";
   clear: both;
@@ -11,9 +13,4 @@ body {
 
 .hidden {
   display: none;
-}
-
-.wrapper {
-  min-width: $content-min-width;
-  text-align: center;
 }
