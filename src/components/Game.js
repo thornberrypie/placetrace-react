@@ -146,7 +146,8 @@ class Game extends Component {
       countryName: country.name,
       countryPopulation: country.population,
       countryRegion: country.region,
-      numGuesses: 0
+      numGuesses: 0,
+      roundEnded: false
     })
   }
 
@@ -169,12 +170,6 @@ class Game extends Component {
 
   setSelectedCountryState(event) {
     let numGuesses = this.state.numGuesses + 1
-    // Finish round if player has no more guesses left
-    console.log(numGuesses)
-    if(numGuesses >= maxNumGuesses) {
-      this.finishRound()
-      return
-    }
     let selectedCountryCode = event.value
     let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
     this.setState({
@@ -182,6 +177,22 @@ class Game extends Component {
       numGuesses: numGuesses,
       selectedCountryCode: event,
     })
+
+    //Finish round if user has selected the correct answer
+    if(correctAnswer) {
+      // this.updateScore()
+
+      // Ensure all stats are showing
+      this.setState({
+        numGuesses: maxNumGuesses
+      })
+      this.finishRound()
+    }
+
+    // Finish round if player has no more guesses left and hasn't guessed correctly
+    if(numGuesses >= maxNumGuesses) {
+      this.finishRound()
+    }
   }
 
   showCountryImage() {
@@ -262,49 +273,62 @@ class Game extends Component {
     this.startNewRound()
   }
 
+  getGameClass() {
+    let gameClass = 'game'
+    if(this.state.roundEnded) {
+      gameClass += ' game--finished'
+    } else {
+      gameClass += this.state.gameStarted ? ' game--started' : ' game--ready'
+    }
+    return gameClass
+  }
+
   render() {
     return (
-      <section className={this.state.gameStarted ? "game game--started" : "game game--ready"}>
+      <section className={this.getGameClass()}>
         <GameIntro/>
-        <div className="game-area">
-          <div className="game-country">
-            {this.showCountryImage()}
-          </div>
-          <form className="form game-form" id="game-form">
-            <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>
-            <div className="game-clues">
-              <p className="text">It shares borders with {this.getCountryBorders()}</p>
-              <p className={this.state.numGuesses === 0 ? "text text--blue" : "hidden"}>More clues will appear here after each guess</p>
-              <ul>
-                {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation.toLocaleString('en')}</li> : ''}
-                {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea.toLocaleString('en')}</li> : ''}
-                {this.state.numGuesses > 2 ? <li><span className="label">Currency: </span><span className="symbol">{this.state.countryCurrencySymbol}</span>{this.getCurrency()}</li> : ''}
-                {this.state.numGuesses > 3 ? <li><span className="label">Language: </span>{this.state.countryLanguage}</li> : ''}
-                {this.state.numGuesses > 4 ? <li><span className="label">Capital City: </span>{this.state.countryCapital}</li> : ''}
-              </ul>
+        <div className="game-zone">
+          <div className="game-area">
+            <div className="game-country">
+              {this.showCountryImage()}
             </div>
-            <div className="game-section game-filter">
-              <div className="game-filter-buttons">
-                <p className="text text--green">Filter countries by region:</p>
-                <div className="game-filter-list clearfix">
-                  {this.showRegions()}
+            <form className="form game-form" id="game-form">
+              {this.state.roundEnded ? '' : <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>}
+              <div className="game-clues">
+                {this.state.roundEnded ? '' : <p className="text">It shares borders with {this.getCountryBorders()}</p>}
+                <p className={this.state.numGuesses === 0 ? "text text--blue" : "hidden"}>More clues will appear here after each&nbsp;guess</p>
+                <ul>
+                  {this.state.numGuesses > 0 ? <li><span className="label">Population: </span>{this.state.countryPopulation.toLocaleString('en')}</li> : ''}
+                  {this.state.numGuesses > 1 ? <li><span className="label">Area (km<sup>2</sup>): </span>{this.state.countryArea.toLocaleString('en')}</li> : ''}
+                  {this.state.numGuesses > 2 ? <li><span className="label">Currency: </span><span className="symbol">{this.state.countryCurrencySymbol}</span>{this.getCurrency()}</li> : ''}
+                  {this.state.numGuesses > 3 ? <li><span className="label">Language: </span>{this.state.countryLanguage}</li> : ''}
+                  {this.state.numGuesses > 4 ? <li><span className="label">Capital City: </span>{this.state.countryCapital}</li> : ''}
+                </ul>
+              </div>
+              <div className={this.state.roundEnded ? 'hidden' : 'game-section game-filter'}>
+                <div className="game-filter-buttons">
+                  <p className="text text--green">Filter countries by region:</p>
+                  <div className="game-filter-list clearfix">
+                    {this.showRegions()}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="game-select">
-              <Select
-                value={this.state.selectedCountryCode}
-                onChange={this.handleCountryChange}
-                options={this.state.countrySelectData}
-                placeholder={this.state.selectPlaceholder}
-                ref={this.countryMenu}
-              />
-            </div>
-          </form>
-        </div>
-        <div className="game-buttons">
-          <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
-          <button onClick={this.refreshCountry} className="button button--refresh">Skip to next round &gt;&gt;</button>
+              <div className={this.state.roundEnded ? 'hidden' : 'game-select'}>
+                <Select
+                  value={this.state.selectedCountryCode}
+                  onChange={this.handleCountryChange}
+                  options={this.state.countrySelectData}
+                  placeholder={this.state.selectPlaceholder}
+                  ref={this.countryMenu}
+                />
+              </div>
+              {this.state.roundEnded ? <div className="game-countryname">{this.state.countryName}</div> : ''}
+            </form>
+          </div>
+          <div className="game-buttons">
+            <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
+            <button onClick={this.refreshCountry} className="button button--refresh">Next Round &gt;</button>
+          </div>
         </div>
       </section>
     )

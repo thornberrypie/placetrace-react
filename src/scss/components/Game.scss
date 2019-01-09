@@ -13,7 +13,8 @@
     }
   }
 
-  &--started {
+  &--started,
+  &--finished {
     .button.button--start,
     .game-intro {
       display: none;
@@ -83,6 +84,16 @@
     }
   }
 
+  &-countryname {
+    color: $color-green-text;
+    font-size: 3rem;
+    margin-top: $space/2;
+
+    @include bp(md) {
+      margin-top: $space;
+    }
+  }
+
   &-image {
     height: $content-min-width/1.5;
     margin: 0 auto;
@@ -115,7 +126,7 @@
     padding: $space/2 $space $space*1.5;
 
     @include bp(sm) {
-      max-width: $content-mid-width;
+      max-width: $content-min-width;
       padding: 0;
     }
   }
@@ -124,5 +135,9 @@
     border-top: 1px solid $border-color;
     margin-bottom: $space;
     padding-top: $space;
+  }
+
+  &-zone {
+    width: 100%;
   }
 }

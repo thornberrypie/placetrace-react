@@ -41,22 +41,23 @@
 }
 
 .game-buttons {
-  max-width: $content-mid-width;
   padding: $space;
   text-align: right;
-  width: 100%;
 
   .button {
-    display: inline-block;
     margin-right: $space;
   }
 
   @include bp(xs) {
     padding-right: 0;
-    
+
     .button {
       margin-right: 0;
     }
+  }
+
+  @include bp(md) {
+    padding: 0;
   }
 }
 

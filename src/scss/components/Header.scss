@@ -3,15 +3,21 @@
   text-align: center;
 
   &-inner {
-    margin: 0 auto;
-    max-width: $content-mid-width;
+    display: flex;
+    justify-content: center;
+  }
 
-    @include bp(xs) {
-      //margin: $space;
+  &-logo {
+    height: $logo-height;
+    margin: $space $space/2 $space 0;
+
+    @include bp(sm) {
+      margin-right: $space;
     }
   }
 
   &-logolink {
+    align-items: center;
     display: block;
     display: flex;
     color: $color-white;
@@ -21,6 +27,8 @@
 
     @include bp(sm) {
       justify-content: flex-start;
+      position: relative;
+      right: 1em;
     }
 
     &:hover {
@@ -28,11 +36,6 @@
         @include animation-spin(0.5s);
       }
     }
-  }
-
-  &-logo {
-    height: $logo-height;
-    margin: $space $space/2 $space 0;
   }
 
   &-title {
