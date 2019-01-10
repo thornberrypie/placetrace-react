@@ -1,6 +1,19 @@
 .form {
   display: block;
+  min-width: calc(#{$content-min-width} - #{$space}*4);
   text-align: left;
+
+  @include bp(xs) {
+    padding: $space/2 0 $space $space;
+  }
+
+  @include bp(sm) {
+    min-width: $content-min-width;
+  }
+
+  @include bp(md) {
+    min-width: $content-min-width;
+  }
 
   &-select {
     div {
@@ -14,9 +27,5 @@
         }
       }
     }
-  }
-
-  @include bp(xs) {
-    padding: $space/2 0 $space $space*2;
   }
 }

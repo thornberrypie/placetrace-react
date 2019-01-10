@@ -48,6 +48,11 @@
     margin-right: $space;
   }
 
+  .game--ready & {
+    margin-top: $space;
+    text-align: center;
+  }
+
   @include bp(xs) {
     padding-right: 0;
 

@@ -21,6 +21,18 @@
     }
   }
 
+  &--easy {
+    .hard {
+      display: none;
+    }
+  }
+
+  &--hard {
+    .easy {
+      display: none;
+    }
+  }
+
   @include bp(xs) {
     justify-content: space-between;
     padding: $space*2 $space;
@@ -58,9 +70,25 @@
       min-width: 6em;
     }
 
+    .value {
+      color: $color-green-text;
+      display: inline-block;
+    }
+
     .symbol {
-      color: $color-blue;
+      color: $color-green;
+      font-weight: bold;
       padding-right: $space/3;
+    }
+
+    .text {
+      padding-top: $space;
+    }
+  }
+
+  &-filter {
+    .game--easy & {
+      display: none;
     }
   }
 
@@ -86,8 +114,8 @@
 
   &-countryname {
     color: $color-green-text;
-    font-size: 3rem;
-    margin-top: $space/2;
+    font-size: 2.5rem;
+    margin: $space/2 0 $space;
 
     @include bp(md) {
       margin-top: $space;
@@ -100,14 +128,19 @@
     width: $content-min-width/1.5;
     max-width: 100%;
 
+    @include bp(xs) {
+      height: $content-min-width/2;
+      width: $content-min-width/2;
+    }
+
     @include bp(sm) {
       height: $content-min-width/1.15;
       width: $content-min-width/1.15;
     }
 
     @include bp(md) {
-      height: $content-min-width*1.3;
-      width: $content-min-width*1.3;
+      height: $content-min-width*1.2;
+      width: $content-min-width*1.2;
     }
 
     @include bp(lg) {
@@ -135,6 +168,15 @@
     border-top: 1px solid $border-color;
     margin-bottom: $space;
     padding-top: $space;
+  }
+
+  &-select {
+    font-size: 0.9rem;
+    padding-top: $space;
+
+    @include bp(xs) {
+      font-size: 1rem;
+    }
   }
 
   &-zone {

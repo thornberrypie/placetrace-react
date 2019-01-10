@@ -43,7 +43,7 @@
     font-family: $font-heading;
     font-size: 1.8rem;
     line-height: $logo-height;
-    padding: $space $space $space 0;
+    padding: $space 0;
     white-space: nowrap;
 
     @include bp(xs) {
