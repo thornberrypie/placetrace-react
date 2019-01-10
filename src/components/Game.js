@@ -135,7 +135,7 @@ class Game extends Component {
       if(item.code && item.code !== '(none)') {
         // Add symbol if different from previous
         if(currencySymbol && currencySymbol !== '' && currencySymbol.indexOf(item.symbol) === -1) {
-          currencySymbol += '&nbsp;'+item.symbol
+          currencySymbol += ' '+item.symbol
         } else {
           currencySymbol = item.symbol
         }

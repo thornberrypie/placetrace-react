@@ -18,7 +18,8 @@ class Currency extends Component {
       return this.props.currency
     }
 
-    let c = this.props.currency.toLowerCase
+    let c = this.props.currency.toLowerCase()
+    console.log(c)
     if(c.indexOf(' afghani') !== -1) c = 'Afghani'
     if(c.indexOf(' ariary') !== -1) c = 'Ariary'
     if(c.indexOf(' baht') !== -1) c = 'Baht'
@@ -37,6 +38,7 @@ class Currency extends Component {
     if(c.indexOf(' đồng') !== -1) c = 'Dồng'
     if(c.indexOf(' dram') !== -1) c = 'Dram'
     if(c.indexOf(' escudo') !== -1) c = 'Escudo'
+    if(c.indexOf('euro') !== -1) c = 'Euro'
     if(c.indexOf(' florin') !== -1) c = 'Florin'
     if(c.indexOf(' forint') !== -1) c = 'Forint'
     if(c.indexOf(' franc') !== -1) c = 'Franc'
@@ -89,7 +91,7 @@ class Currency extends Component {
     if(c.indexOf(' sheqel') !== -1) c = 'Sheqel'
     if(c.indexOf(' shilling') !== -1) c = 'Shilling'
     if(c.indexOf(' sol') !== -1) c = 'Sol'
-    if(c.indexOf(' so\'m') !== -1) c = 'so\'m'
+    if(c.indexOf(' so\'m') !== -1) c = 'So\'m'
     if(c.indexOf(' som') !== -1) c = 'Som'
     if(c.indexOf(' somoni') !== -1) c = 'Somoni'
     if(c.indexOf(' taka') !== -1) c = 'Taka'
