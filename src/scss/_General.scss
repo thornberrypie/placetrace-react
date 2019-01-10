@@ -11,6 +11,31 @@
   display: table;
 }
 
+.flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &--around {
+    justify-content: space-around;
+  }
+
+  &--center {
+    justify-content: center;
+  }
+
+  &--column {
+    flex-direction: column;
+  }
+
+  &--padding {
+    li, p {
+      padding-left: $space;
+      padding-right: $space;
+    }
+  }
+}
+
 .hidden {
   display: none;
 }

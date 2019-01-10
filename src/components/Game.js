@@ -7,7 +7,7 @@ import SvgData from '../data/svgCountries.json'
 
 const apiAllCountries = 'https://restcountries.eu/rest/v2/all'
 const colorGreen = '#79c050'
-const maxNumGuesses = 3
+const maxNumGuesses = 4
 const Regions = [
     'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
 ]
@@ -29,6 +29,7 @@ class Game extends Component {
       countryPopulation: '',
       countryRegion: '',
       countrySelectData: [],
+      countrySubRegion: '',
       countriesData: [],
       gameDifficulty: 'easy',
       gameStarted: false,
@@ -39,7 +40,8 @@ class Game extends Component {
       score: 0,
       selectPlaceholder: 'Select country...',
       selectedCountryCode: '',
-      selectedRegion: ''
+      selectedRegion: '',
+      totalNumGuesses: 0
     }
   }
 
@@ -93,6 +95,14 @@ class Game extends Component {
     return this.state.countryArea.toLocaleString('en')
   }
 
+  getBorders() {
+    let borders = this.state.countryBorders
+    if(!this.state.roundEnded) {
+      return borders.length
+    }
+    return borders.length ? borders.toString().replace(/,/g, ', ') : 'none'
+  }
+
   getCountriesFromAPI() {
     fetch(apiAllCountries)
     .then(response => response.json())
@@ -102,12 +112,6 @@ class Game extends Component {
       })
       this.startNewRound()
     })
-  }
-
-  getCountryBorders() {
-    let borders = this.state.countryBorders;
-    let bordersText = borders.length === 1 ? '1 other country' : borders.length+' other countries'
-    return bordersText
   }
 
   getPopulation() {
@@ -139,6 +143,12 @@ class Game extends Component {
         } else {
           currencySymbol = item.symbol
         }
+
+        // Hard code Manat symbol (doesn't seem to work from API)
+        if (item.name.indexOf(' manat') !== -1) {
+          currencySymbol = 'm';
+        }
+
         currency += item.name + ', '
       }
     })
@@ -160,6 +170,7 @@ class Game extends Component {
       countryName: country.name,
       countryPopulation: country.population,
       countryRegion: country.region,
+      countrySubRegion: country.subregion,
       numGuesses: 0,
       roundEnded: false,
       selectedRegion: this.state.gameDifficulty === 'easy' ? country.region : ''
@@ -190,12 +201,14 @@ class Game extends Component {
 
   setSelectedCountryState(event) {
     let numGuesses = this.state.numGuesses + 1
+    let totalNumGuesses = this.state.totalNumGuesses + 1
     let selectedCountryCode = event.value
     let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
     this.setState({
       correctAnswer: correctAnswer,
       numGuesses: numGuesses,
       selectedCountryCode: event,
+      totalNumGuesses: totalNumGuesses
     })
 
     //Finish round if user has selected the correct answer
@@ -268,11 +281,19 @@ class Game extends Component {
       return false
     }
 
+    let country = this.state.countriesData[selectedIndex]
+
+    // Start again if country has no region
+    if(country.region === '') {
+      this.startNewRound()
+      return false
+    }
+
     this.setCountryState(selectedIndex)
 
     // Filter by region already if easy game
     if(this.state.gameDifficulty === 'easy') {
-      this.buildSelectMenu(this.state.countriesData[selectedIndex].region)
+      this.buildSelectMenu(country.region)
     } else {
       this.buildSelectMenu()
     }
@@ -326,8 +347,10 @@ class Game extends Component {
               <div className="game-clues">
                 <ul>
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Region: </span><span className="value">{this.state.countryRegion}</span></li> : ''}
+                  {this.state.roundEnded ? <li><span className="label">Sub-region: </span><span className="value">{this.state.countrySubRegion}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Population: </span><span className="value">{this.getPopulation()}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Area (km<sup>2</sup>): </span><span className="value">{this.getArea()}</span></li> : ''}
+                  {this.state.gameDifficulty === 'easy' ? <li><span className="label">Borders: </span><span className="value">{this.getBorders()}</span></li> : ''}
                   {this.state.numGuesses > 0 ? <Currency symbol={this.state.countryCurrencySymbol} currency={this.state.countryCurrency} roundEnded={this.state.roundEnded} /> : ''}
                   {this.state.numGuesses > 1 ? <li><span className="label">Language: </span><span className="value">{this.state.countryLanguage}</span></li> : ''}
                   {this.state.numGuesses > 2 ? <li><span className="label">Capital City: </span><span className="value">{this.state.countryCapital}</span></li> : ''}
@@ -352,7 +375,7 @@ class Game extends Component {
                 />
               </div>
               {this.state.roundEnded ? <div className="game-countryname">{this.state.countryName}</div> : ''}
-              {this.state.correctAnswer ? <h2 className="text-green">is correct!</h2> : ''}
+              {this.state.correctAnswer && this.state.roundEnded ? <h2 className="text-green">is correct!</h2> : ''}
               <div className="game-buttons">
                 {this.state.roundEnded ? <button onClick={this.refreshCountry} className="button button--refresh">Next Round &gt;</button> : ''}
               </div>
@@ -360,6 +383,12 @@ class Game extends Component {
           </div>
           <div className="game-buttons">
             <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
+          </div>
+          <div className={this.state.roundsPlayed > 0 ? 'game-stats' : 'hidden'}>
+            <ul className="flex flex--nopadding">
+              <li><span className="label">Rounds played: </span><span className="value">{this.state.roundsPlayed}</span></li>
+              <li><span className="label">Total guesses: </span><span className="value">{this.state.totalNumGuesses}</span></li>
+            </ul>
           </div>
         </div>
       </section>

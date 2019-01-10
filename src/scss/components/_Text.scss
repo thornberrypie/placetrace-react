@@ -3,6 +3,10 @@ body {
   font-family: $font-main;
 }
 
+a {
+  color: $color-green-text;
+}
+
 h1, h2, h3 {
   line-height: 1.3;
 }
