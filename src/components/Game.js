@@ -272,7 +272,7 @@ class Game extends Component {
 
     // Filter by region already if easy game
     if(this.state.gameDifficulty === 'easy') {
-      this.buildSelectMenu(this.state.countryRegion)
+      this.buildSelectMenu(this.state.countriesData[selectedIndex].region)
     } else {
       this.buildSelectMenu()
     }
@@ -351,8 +351,8 @@ class Game extends Component {
                   ref={this.countryMenu}
                 />
               </div>
-              {this.state.correctAnswer ? <h2 className="text-green">Correct!</h2> : ''}
               {this.state.roundEnded ? <div className="game-countryname">{this.state.countryName}</div> : ''}
+              {this.state.correctAnswer ? <h2 className="text-green">is correct!</h2> : ''}
               <div className="game-buttons">
                 {this.state.roundEnded ? <button onClick={this.refreshCountry} className="button button--refresh">Next Round &gt;</button> : ''}
               </div>

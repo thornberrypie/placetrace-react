@@ -19,7 +19,6 @@ class Currency extends Component {
     }
 
     let c = this.props.currency.toLowerCase()
-    console.log(c)
     if(c.indexOf(' afghani') !== -1) c = 'Afghani'
     if(c.indexOf(' ariary') !== -1) c = 'Ariary'
     if(c.indexOf(' baht') !== -1) c = 'Baht'

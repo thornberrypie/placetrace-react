@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: $space $space/2;
+  padding: $space;
   position: relative;
   text-align: left;
 
@@ -115,7 +115,7 @@
   &-countryname {
     color: $color-green-text;
     font-size: 2.5rem;
-    margin: $space/2 0 $space;
+    margin: $space 0;
 
     @include bp(md) {
       margin-top: $space;
