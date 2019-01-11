@@ -86,17 +86,6 @@
     }
   }
 
-  &-filter {
-    .game--easy & {
-      display: none;
-    }
-  }
-
-  &-form {
-    margin: 0 auto;
-    padding: $space;
-  }
-
   &-country {
     margin: 0 auto $space;
     min-height: $content-min-width/1.5;
@@ -120,6 +109,25 @@
     @include bp(md) {
       margin-top: $space;
     }
+  }
+
+  &-filter {
+    border-top: 1px solid $border-color;
+    margin-bottom: $space;
+    padding-top: $space;
+
+    .game--easy & {
+      display: none;
+    }
+  }
+
+  &-form {
+    margin: 0 auto;
+    padding: $space;
+  }
+
+  &-guesses {
+    text-align: left;
   }
 
   &-image {
@@ -164,12 +172,6 @@
     }
   }
 
-  &-section {
-    border-top: 1px solid $border-color;
-    margin-bottom: $space;
-    padding-top: $space;
-  }
-
   &-select {
     font-size: 0.9rem;
     padding-top: $space;
@@ -181,5 +183,10 @@
 
   &-zone {
     width: 100%;
+
+    & > div:last-child {
+      border-bottom: 10px solid red;
+      margin-bottom: $space * 2;
+    }
   }
 }

@@ -36,6 +36,7 @@ class Game extends Component {
       levelsPlayed: 0,
       numGuesses: 0,
       roundEnded: false,
+      guessedCountries: [],
       roundsPlayed: 0,
       score: 0,
       selectPlaceholder: 'Select country...',
@@ -112,6 +113,18 @@ class Game extends Component {
       })
       this.startNewRound()
     })
+  }
+
+  getGameClass() {
+    let gameClass = 'game'
+    if(this.state.roundEnded) {
+      gameClass += ' game--finished'
+    } else {
+      gameClass += this.state.gameStarted ? ' game--started' : ' game--ready'
+    }
+
+    gameClass += this.state.gameDifficulty === 'easy' ? ' game--easy' : ' game-hard'
+    return gameClass
   }
 
   getPopulation() {
@@ -204,8 +217,12 @@ class Game extends Component {
     let totalNumGuesses = this.state.totalNumGuesses + 1
     let selectedCountryCode = event.value
     let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
+    let guessedCountries = this.state.guessedCountries;
+    guessedCountries.push(event.label)
+
     this.setState({
       correctAnswer: correctAnswer,
+      guessedCountries: guessedCountries,
       numGuesses: numGuesses,
       selectedCountryCode: event,
       totalNumGuesses: totalNumGuesses
@@ -213,8 +230,6 @@ class Game extends Component {
 
     //Finish round if user has selected the correct answer
     if(correctAnswer) {
-      // this.updateScore()
-
       // Ensure all stats are showing
       this.setState({
         numGuesses: maxNumGuesses
@@ -321,16 +336,17 @@ class Game extends Component {
     this.startNewRound()
   }
 
-  getGameClass() {
-    let gameClass = 'game'
-    if(this.state.roundEnded) {
-      gameClass += ' game--finished'
-    } else {
-      gameClass += this.state.gameStarted ? ' game--started' : ' game--ready'
-    }
+  showGuessedCountries() {
+    let guesses = this.state.guessedCountries.map((item, key) =>
+        <li key={key} className="item">{item}</li>
+    )
+    return guesses
+  }
 
-    gameClass += this.state.gameDifficulty === 'easy' ? ' game--easy' : ' game-hard'
-    return gameClass
+  getGuessesLeft() {
+    let g = parseInt(maxNumGuesses) - parseInt(this.state.numGuesses)
+    g += g === 1 ? ' guess' : ' guesses'
+    return g
   }
 
   render() {
@@ -341,6 +357,11 @@ class Game extends Component {
           <div className="game-area">
             <div className="game-country">
               {this.showCountryImage()}
+              <div className={this.state.numGuesses > 0 ? 'game-guesses' : 'hidden'}>
+                <p>You guessed: </p>
+                <ul className="list">{this.showGuessedCountries()}</ul>
+                {!this.state.roundEnded ? <p>You have {this.getGuessesLeft()} left</p> : ''}
+              </div>
             </div>
             <form className="form game-form" id="game-form">
               {this.state.roundEnded ? '' : <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>}

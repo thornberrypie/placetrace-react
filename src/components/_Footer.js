@@ -4,7 +4,7 @@ class Footer extends Component {
   render() {
     return (
       <footer className="footer">
-        <ul className="flex flex--padding">
+        <ul className="flex">
           <li>&copy; 2019 <a href="http://thornberrypie.com">ThornberryPie</a></li>
           <li>Social share</li>
         </ul>
