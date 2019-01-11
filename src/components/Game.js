@@ -86,6 +86,7 @@ class Game extends Component {
     let roundsPlayed = this.state.roundsPlayed + 1
 
     this.setState({
+      guessedCountries: [],
       roundEnded: true,
       roundsPlayed: roundsPlayed,
       selectedCountryCode: ''
@@ -357,7 +358,7 @@ class Game extends Component {
           <div className="game-area">
             <div className="game-country">
               {this.showCountryImage()}
-              <div className={this.state.numGuesses > 0 ? 'game-guesses' : 'hidden'}>
+              <div className={this.state.numGuesses > 0 && !this.state.roundEnded ? 'game-guesses' : 'hidden'}>
                 <p>You guessed: </p>
                 <ul className="list">{this.showGuessedCountries()}</ul>
                 {!this.state.roundEnded ? <p>You have {this.getGuessesLeft()} left</p> : ''}

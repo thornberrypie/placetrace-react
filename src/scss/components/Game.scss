@@ -127,6 +127,7 @@
   }
 
   &-guesses {
+    padding-top: $space*2;
     text-align: left;
   }
 
@@ -185,7 +186,6 @@
     width: 100%;
 
     & > div:last-child {
-      border-bottom: 10px solid red;
       margin-bottom: $space * 2;
     }
   }
