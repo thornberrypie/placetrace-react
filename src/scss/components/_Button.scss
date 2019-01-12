@@ -47,9 +47,9 @@
   @include bp(xs) {
     padding-right: 0;
   }
-
-  @include bp(md) {
-    padding: 0;
+  
+  .game--ready & {
+    text-align: center;
   }
 
   .button {

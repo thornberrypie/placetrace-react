@@ -128,8 +128,19 @@ class Game extends Component {
     return gameClass
   }
 
+  getGuessesLeft() {
+    let g = parseInt(maxNumGuesses) - parseInt(this.state.numGuesses)
+    g += g === 1 ? ' guess' : ' guesses'
+    return g
+  }
+
   getPopulation() {
     return this.state.countryPopulation.toLocaleString('en')
+  }
+
+  getScore() {
+    let score = this.state.roundsPlayed / this.state.totalNumGuesses * 100
+    return score.toString() + '%'
   }
 
   setPlaceholder(region) {
@@ -264,6 +275,13 @@ class Game extends Component {
     )
   }
 
+  showGuessedCountries() {
+    let guesses = this.state.guessedCountries.map((item, key) =>
+        <li key={key} className="item">{item}</li>
+    )
+    return guesses
+  }
+
   showRegions() {
     return(
       Regions.map(function(region, index){
@@ -337,19 +355,6 @@ class Game extends Component {
     this.startNewRound()
   }
 
-  showGuessedCountries() {
-    let guesses = this.state.guessedCountries.map((item, key) =>
-        <li key={key} className="item">{item}</li>
-    )
-    return guesses
-  }
-
-  getGuessesLeft() {
-    let g = parseInt(maxNumGuesses) - parseInt(this.state.numGuesses)
-    g += g === 1 ? ' guess' : ' guesses'
-    return g
-  }
-
   render() {
     return (
       <section className={this.getGameClass()}>
@@ -410,6 +415,7 @@ class Game extends Component {
             <ul className="flex flex--around flex--nopadding">
               <li><span className="label">Rounds played: </span><span className="value">{this.state.roundsPlayed}</span></li>
               <li><span className="label">Total guesses: </span><span className="value">{this.state.totalNumGuesses}</span></li>
+              <li><span className="label">Score: </span><span className="value">{this.getScore()}</span></li>
             </ul>
           </div>
         </div>

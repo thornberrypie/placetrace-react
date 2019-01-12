@@ -60,18 +60,24 @@
       font-family: $font-heading;
       line-height: 1.5;
       padding: $space/3 0;
+      position: relative;
     }
 
     .label {
       display: inline-block;
       font-family: $font-main;
-      font-size: 0.9rem;
-      min-width: 6em;
+      left: 0;
+      line-height: 1.3;
+      min-width: $label-width;
+      position: absolute;
+      top: $space/2;
     }
 
     .value {
       color: $color-green-text;
       display: inline-block;
+      padding-left: $label-width;
+
     }
 
     .symbol {
@@ -126,14 +132,7 @@
   }
 
   &-guesses {
-    //padding-top: $space*2;
     text-align: left;
-
-    @include bp(xs) {
-      left: $space*2;
-      position: absolute;
-      top: 25em;
-    }
   }
 
   &-image {
@@ -171,10 +170,14 @@
 
   &-intro {
     padding: $space/2 $space $space*1.5;
+    text-align: center;
+
+    h1 {
+      margin: 0 0 $space;
+    }
 
     @include bp(sm) {
       max-width: $content-min-width;
-      padding: 0;
     }
 
     @include bp(lg) {
@@ -199,6 +202,23 @@
     padding: $space;
     position: fixed;
     width: 100%;
+
+    span {
+      display: block;
+      padding: 0 $space;
+      text-align: center;
+
+      &.value {
+        font-weight: bold;
+        padding-top: $space/4
+      }
+
+      @include bp(sm) {
+        display: inline-block;
+        padding: 0 $space/8;
+        text-align: left;
+      }
+    }
   }
 
   &-zone {
