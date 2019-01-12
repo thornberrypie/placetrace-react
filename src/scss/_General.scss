@@ -42,11 +42,11 @@
 
 .list {
   display: block;
-  margin-top: $space/2;
+  margin: $space 0 $space;
 
   .item {
     color: $color-blue-text;
     display: block;
-    margin: $space/2 0;
+    margin: 0 0 $space/2;
   }
 }

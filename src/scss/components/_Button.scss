@@ -44,25 +44,28 @@
   padding: $space;
   text-align: right;
 
-  .button {
-    margin-right: $space;
-  }
-
-  .game--ready & {
-    margin-top: $space;
-    text-align: center;
-  }
-
   @include bp(xs) {
     padding-right: 0;
-
-    .button {
-      margin-right: 0;
-    }
   }
 
   @include bp(md) {
     padding: 0;
+  }
+
+  .button {
+    margin-right: $space;
+
+    @include bp(xs) {
+      margin-right: 0;
+    }
+  }
+
+  .game--ready & {
+    text-align: center;
+
+    @include bp(lg) {
+      margin-top: $space*2;
+    }
   }
 }
 

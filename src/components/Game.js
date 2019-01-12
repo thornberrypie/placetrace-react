@@ -358,11 +358,6 @@ class Game extends Component {
           <div className="game-area">
             <div className="game-country">
               {this.showCountryImage()}
-              <div className={this.state.numGuesses > 0 && !this.state.roundEnded ? 'game-guesses' : 'hidden'}>
-                <p>You guessed: </p>
-                <ul className="list">{this.showGuessedCountries()}</ul>
-                {!this.state.roundEnded ? <p>You have {this.getGuessesLeft()} left</p> : ''}
-              </div>
             </div>
             <form className="form game-form" id="game-form">
               {this.state.roundEnded ? '' : <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>}
@@ -401,13 +396,18 @@ class Game extends Component {
               <div className="game-buttons">
                 {this.state.roundEnded ? <button onClick={this.refreshCountry} className="button button--refresh">Next Round &gt;</button> : ''}
               </div>
+              <div className={this.state.numGuesses > 0 && !this.state.roundEnded ? 'game-guesses' : 'hidden'}>
+                <p>You guessed: </p>
+                <ul className="list">{this.showGuessedCountries()}</ul>
+                {!this.state.roundEnded ? <p>You have {this.getGuessesLeft()} left</p> : ''}
+              </div>
             </form>
           </div>
           <div className="game-buttons">
             <button onClick={this.clickStartButton} className="button button--start">Start Game</button>
           </div>
           <div className={this.state.roundsPlayed > 0 ? 'game-stats' : 'hidden'}>
-            <ul className="flex flex--nopadding">
+            <ul className="flex flex--around flex--nopadding">
               <li><span className="label">Rounds played: </span><span className="value">{this.state.roundsPlayed}</span></li>
               <li><span className="label">Total guesses: </span><span className="value">{this.state.totalNumGuesses}</span></li>
             </ul>

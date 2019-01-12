@@ -1,6 +1,6 @@
 .form {
   display: block;
-  min-width: calc(#{$content-min-width} - 3rem;
+  min-width: $min-form-width;
   text-align: left;
 
   @include bp(xs) {

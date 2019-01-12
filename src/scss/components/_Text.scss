@@ -5,6 +5,11 @@ body {
 
 a {
   color: $color-green-text;
+  text-decoration: none;
+
+  &:focus, &:hover {
+    color: $color-green;
+  }
 }
 
 h1, h2, h3 {
