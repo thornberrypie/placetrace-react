@@ -41,13 +41,16 @@
 }
 
 .game-buttons {
-  padding: $space;
-  text-align: right;
+  padding: $space 0;
+
+  .game--finished & {
+    margin-bottom: $space
+  }
 
   @include bp(xs) {
     padding-right: 0;
   }
-  
+
   .game--ready & {
     text-align: center;
   }

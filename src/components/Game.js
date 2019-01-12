@@ -82,7 +82,7 @@ class Game extends Component {
     })
   }
 
-  finishRound() {
+  endRound() {
     let roundsPlayed = this.state.roundsPlayed + 1
 
     this.setState({
@@ -91,6 +91,11 @@ class Game extends Component {
       roundsPlayed: roundsPlayed,
       selectedCountryCode: ''
     })
+
+    setTimeout(function(){
+      document.getElementById('countryDisplayName').scrollIntoView()
+    }, 333)
+
   }
 
   getArea() {
@@ -140,6 +145,7 @@ class Game extends Component {
 
   getScore() {
     let score = this.state.roundsPlayed / this.state.totalNumGuesses * 100
+    score = Math.round( score * 10 ) / 10
     return score.toString() + '%'
   }
 
@@ -225,11 +231,18 @@ class Game extends Component {
   }
 
   setSelectedCountryState(event) {
-    let numGuesses = this.state.numGuesses + 1
-    let totalNumGuesses = this.state.totalNumGuesses + 1
+    let selectedCountryName = event.label
+    let guessedCountries = this.state.guessedCountries
+
+    // Don't do anything if this country has already been chosen
+    if(guessedCountries.includes(selectedCountryName)) {
+      return false
+    }
+
     let selectedCountryCode = event.value
     let correctAnswer = selectedCountryCode === this.state.countryCode ? true : false
-    let guessedCountries = this.state.guessedCountries;
+    let numGuesses = this.state.numGuesses + 1
+    let totalNumGuesses = this.state.totalNumGuesses + 1
     guessedCountries.push(event.label)
 
     this.setState({
@@ -246,12 +259,12 @@ class Game extends Component {
       this.setState({
         numGuesses: maxNumGuesses
       })
-      this.finishRound()
+      this.endRound()
     }
 
     // Finish round if player has no more guesses left and hasn't guessed correctly
     if(numGuesses >= maxNumGuesses) {
-      this.finishRound()
+      this.endRound()
     }
   }
 
@@ -396,7 +409,7 @@ class Game extends Component {
                   ref={this.countryMenu}
                 />
               </div>
-              {this.state.roundEnded ? <div className="game-countryname">{this.state.countryName}</div> : ''}
+              {this.state.roundEnded ? <div className="game-countryname" id="countryDisplayName">{this.state.countryName}</div> : ''}
               {this.state.correctAnswer && this.state.roundEnded ? <h2 className="text-green">is correct!</h2> : ''}
               <div className="game-buttons">
                 {this.state.roundEnded ? <button onClick={this.refreshCountry} className="button button--refresh">Next Round &gt;</button> : ''}
@@ -404,7 +417,7 @@ class Game extends Component {
               <div className={this.state.numGuesses > 0 && !this.state.roundEnded ? 'game-guesses' : 'hidden'}>
                 <p>You guessed: </p>
                 <ul className="list">{this.showGuessedCountries()}</ul>
-                {!this.state.roundEnded ? <p>You have {this.getGuessesLeft()} left</p> : ''}
+                {!this.state.roundEnded ? <p><b>{this.getGuessesLeft()}</b> left</p> : ''}
               </div>
             </form>
           </div>
