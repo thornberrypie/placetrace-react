@@ -169,12 +169,8 @@
   }
 
   &-intro {
-    padding: $space/2 $space $space*1.5;
+    padding: $space/2 $space 0;
     text-align: center;
-
-    h1 {
-      margin: 0 0 $space;
-    }
 
     @include bp(sm) {
       max-width: $content-min-width;

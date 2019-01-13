@@ -65,10 +65,6 @@
 
   .game--ready & {
     text-align: center;
-
-    @include bp(lg) {
-      margin-top: $space*2;
-    }
   }
 }
 
