@@ -22,6 +22,7 @@ class Game extends Component {
       countryBorders: [],
       countryCapital: '',
       countryCode: '',
+      countryCodes: '',
       countryCurrency: '',
       countryCurrencySymbol: '',
       countryLanguage: '',
@@ -121,6 +122,10 @@ class Game extends Component {
     })
   }
 
+  getCountryCodes(c) {
+    return c.alpha2Code+', '+c.alpha3Code+', '+c.numericCode
+  }
+
   getGameClass() {
     let gameClass = 'game'
     if(this.state.roundEnded) {
@@ -195,6 +200,7 @@ class Game extends Component {
       countryBorders: country.borders,
       countryCapital: country.capital,
       countryCode: country.alpha2Code.toLowerCase(),
+      countryCodes: this.getCountryCodes(country),
       countryCurrency: currency,
       countryCurrencySymbol: currencySymbol,
       countryLanguage: language,
@@ -385,6 +391,7 @@ class Game extends Component {
                   {this.state.roundEnded ? <li><span className="label">Sub-region: </span><span className="value">{this.state.countrySubRegion}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Population: </span><span className="value">{this.getPopulation()}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Area (km<sup>2</sup>): </span><span className="value">{this.getArea()}</span></li> : ''}
+                  {this.state.roundEnded ? <li><span className="label">Codes: </span><span className="value">{this.state.countryCodes}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Borders: </span><span className="value">{this.getBorders()}</span></li> : ''}
                   {this.state.numGuesses > 0 ? <Currency symbol={this.state.countryCurrencySymbol} currency={this.state.countryCurrency} roundEnded={this.state.roundEnded} /> : ''}
                   {this.state.numGuesses > 1 ? <li><span className="label">Language: </span><span className="value">{this.state.countryLanguage}</span></li> : ''}
