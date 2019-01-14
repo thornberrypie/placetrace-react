@@ -32,6 +32,7 @@ class Game extends Component {
       countrySelectData: [],
       countrySubRegion: '',
       countriesData: [],
+      forceCountry: '', // Used for testing a specific country
       gameDifficulty: 'easy',
       gameStarted: false,
       levelsPlayed: 0,
@@ -319,6 +320,10 @@ class Game extends Component {
     // Create random country code from SVG JSON data
     let randomIndex = Math.floor((Math.random() * SvgData.length))
     let randomCountryCode = SvgData[randomIndex].id
+
+    if(this.state.forceCountry) {
+      randomCountryCode = this.state.forceCountry
+    }
 
     // Match up random country code with data item from API
     let selectedIndex = -1;
