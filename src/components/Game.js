@@ -84,6 +84,12 @@ class Game extends Component {
     })
   }
 
+  clearSelectValue() {
+    this.setState({
+      selectedCountryCode: ''
+    })
+  }
+
   endRound() {
     let roundsPlayed = this.state.roundsPlayed + 1
 
@@ -215,7 +221,7 @@ class Game extends Component {
     })
   }
 
-  setRegionState(event) {
+  regionClick(event) {
     event.preventDefault()
 
     //Disable region clicking for easy game
@@ -237,12 +243,13 @@ class Game extends Component {
     this.countryMenu.current.focus()
   }
 
-  setSelectedCountryState(event) {
+  countryChange(event) {
     let selectedCountryName = event.label
     let guessedCountries = this.state.guessedCountries
 
     // Don't do anything if this country has already been chosen
     if(guessedCountries.includes(selectedCountryName)) {
+      this.clearSelectValue()
       return false
     }
 
@@ -256,7 +263,7 @@ class Game extends Component {
       correctAnswer: correctAnswer,
       guessedCountries: guessedCountries,
       numGuesses: numGuesses,
-      selectedCountryCode: event,
+      selectedCountryCode: '',
       totalNumGuesses: totalNumGuesses
     })
 
@@ -363,20 +370,24 @@ class Game extends Component {
     })
   }
 
+  refreshCountry(event) {
+    this.startNewRound()
+  }
+
   clickStartButton = e => {
     this.startGame()
   }
 
   handleCountryChange = e => {
-    this.setSelectedCountryState(e)
+    this.countryChange(e)
   }
 
   handleRegionClick = e => {
-    this.setRegionState(e)
+    this.regionClick(e)
   }
 
-  refreshCountry = e => {
-    this.startNewRound()
+  handleRefreshCountry = e => {
+    this.refreshCountry(e)
   }
 
   render() {
@@ -424,7 +435,7 @@ class Game extends Component {
               {this.state.roundEnded ? <div className="game-countryname" id="countryDisplayName">{this.state.countryName}</div> : ''}
               {this.state.correctAnswer && this.state.roundEnded ? <h2 className="text-green">is correct!</h2> : ''}
               <div className="game-buttons">
-                {this.state.roundEnded ? <button onClick={this.refreshCountry} className="button button--refresh">Next Round &gt;</button> : ''}
+                {this.state.roundEnded ? <button onClick={this.handleRefreshCountry} className="button button--refresh">Next Round &gt;</button> : ''}
               </div>
               <div className={this.state.numGuesses > 0 && !this.state.roundEnded ? 'game-guesses' : 'hidden'}>
                 <p>You guessed: </p>
