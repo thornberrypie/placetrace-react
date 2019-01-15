@@ -32,7 +32,7 @@ class Game extends Component {
       countrySelectData: [],
       countrySubRegion: '',
       countriesData: [],
-      forceCountry: 'mn', // for testing a specific country
+      forceCountry: 'tz', // for testing a specific country
       gameDifficulty: 'easy',
       gameStarted: false,
       levelsPlayed: 0,
