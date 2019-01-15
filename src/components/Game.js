@@ -32,7 +32,7 @@ class Game extends Component {
       countrySelectData: [],
       countrySubRegion: '',
       countriesData: [],
-      forceCountry: 'fj', // Used for testing a specific country
+      forceCountry: '', // Used for testing a specific country
       gameDifficulty: 'easy',
       gameStarted: false,
       levelsPlayed: 0,
@@ -100,8 +100,8 @@ class Game extends Component {
 
   }
 
-  getArea() {
-    return this.state.countryArea.toLocaleString('en')
+  getArea(area) {
+    return area ? area.toLocaleString('en') : 'unknown'
   }
 
   getBorders() {
@@ -395,7 +395,7 @@ class Game extends Component {
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Region: </span><span className="value">{this.state.countryRegion}</span></li> : ''}
                   {this.state.roundEnded ? <li><span className="label">Sub-region: </span><span className="value">{this.state.countrySubRegion}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Population: </span><span className="value">{this.getPopulation()}</span></li> : ''}
-                  {this.state.gameDifficulty === 'easy' ? <li><span className="label">Area (km<sup>2</sup>): </span><span className="value">{this.getArea()}</span></li> : ''}
+                  {this.state.gameDifficulty === 'easy' ? <li><span className="label">Area (km<sup>2</sup>): </span><span className="value">{this.getArea(this.state.countryArea)}</span></li> : ''}
                   {this.state.roundEnded ? <li><span className="label">Codes: </span><span className="value">{this.state.countryCodes}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Borders: </span><span className="value">{this.getBorders()}</span></li> : ''}
                   {this.state.numGuesses > 0 ? <Currency symbol={this.state.countryCurrencySymbol} currency={this.state.countryCurrency} roundEnded={this.state.roundEnded} /> : ''}
