@@ -44,10 +44,10 @@
   @if $class == xxs {
     @media (min-width: $bp-xxs) { @content; }
   }
-  @if $class == xs {
+  @else if $class == xs {
     @media (min-width: $bp-xs) { @content; }
   }
-  @if $class == sm {
+  @else if $class == sm {
     @media (min-width: $bp-sm) { @content; }
   }
   @else if $class == md {
