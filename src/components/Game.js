@@ -19,19 +19,15 @@ class Game extends Component {
     this.countryMenu = React.createRef()
     this.state = {
       correctAnswer: false,
-      countryArea: '',
+      country: {},
       countryBorders: [],
-      countryCapital: '',
       countryCode: '',
-      countryCodes: '',
       countryCurrency: '',
       countryCurrencySymbol: '',
       countryLanguage: '',
       countryName: '',
       countryPopulation: '',
-      countryRegion: '',
       countrySelectData: [],
-      countrySubRegion: '',
       countriesData: [],
       forceCountry: '', // for testing a specific country
       gameDifficulty: 'easy',
@@ -42,7 +38,7 @@ class Game extends Component {
       guessedCountries: [],
       roundsPlayed: 0,
       score: 0,
-      selectPlaceholder: 'choose country...',
+      selectPlaceholder: 'Choose country...',
       selectedCountryCode: '',
       selectedRegion: '',
       totalNumGuesses: 0
@@ -181,7 +177,8 @@ class Game extends Component {
     })
   }
 
-  getCountryCodes(c) {
+  getCountryCodes() {
+    let c = this.state.country
     let codes = ''
     codes += c.alpha2Code ? c.alpha2Code+', ' : ''
     codes += c.alpha3Code ? c.alpha3Code+', ' : ''
@@ -200,6 +197,11 @@ class Game extends Component {
     }
 
     return codes
+  }
+
+  getCountryFlag() {
+    let flag = this.state.country.flag
+    return flag ? flag : ''
   }
 
   getCountryName(n, suffix = false) {
@@ -254,7 +256,7 @@ class Game extends Component {
     }
     this.setState({
       selectedCountryCode: '',
-      selectPlaceholder: 'choose country in ' + region
+      selectPlaceholder: 'Choose country in ' + region
     })
   }
 
@@ -290,18 +292,13 @@ class Game extends Component {
     language = language !== '' ? language.slice(0, -2) : ''
 
     this.setState({
-      countryArea: country.area,
       countryBorders: country.borders,
-      countryCapital: country.capital,
       countryCode: country.alpha2Code.toLowerCase(),
-      countryCodes: this.getCountryCodes(country),
       countryCurrency: currency,
       countryCurrencySymbol: currencySymbol,
       countryLanguage: language,
       countryName: country.name,
       countryPopulation: country.population,
-      countryRegion: country.region,
-      countrySubRegion: country.subregion,
       numGuesses: 0,
       roundEnded: false,
       selectedRegion: this.state.gameDifficulty === 'easy' ? country.region : ''
@@ -433,8 +430,15 @@ class Game extends Component {
       return false
     }
 
+
+
     let country = this.state.countriesData[selectedIndex]
 
+    this.setState({
+      country: country
+    })
+
+    // setCountryState function should be replaced with the above
     this.setCountryState(selectedIndex)
 
     // Filter by region already if easy game
@@ -479,20 +483,27 @@ class Game extends Component {
           <div className="game-area">
             <div className="game-country">
               {this.showCountryImage()}
+              <div className={this.state.roundEnded && this.state.country.flag ? "game-flag" : "hidden"}>
+                <img
+                  src={this.getCountryFlag()}
+                  alt={this.getCountryName()}
+                  width="180" height="120"
+                />
+              </div>
             </div>
             <form className="form game-form" id="game-form">
               {this.state.roundEnded || this.state.roundsPlayed ? '' : <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>}
               <div className="game-clues">
                 <ul>
-                  {this.state.gameDifficulty === 'easy' ? <li><span className="label">Region: </span><span className="value">{this.getRegion(this.state.countryRegion)}</span></li> : ''}
-                  {this.state.roundEnded && this.state.countrySubRegion ? <li><span className="label">Sub-region: </span><span className="value">{this.state.countrySubRegion}</span></li> : ''}
+                  {this.state.gameDifficulty === 'easy' ? <li><span className="label">Region: </span><span className="value">{this.getRegion(this.state.country.region)}</span></li> : ''}
+                  {this.state.roundEnded && this.state.country.subregion ? <li><span className="label">Sub-region: </span><span className="value">{this.state.country.subregion}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Population: </span><span className="value">{this.getPopulation()}</span></li> : ''}
-                  {this.state.gameDifficulty === 'easy' ? <li><span className="label">Area (km<sup>2</sup>): </span><span className="value">{this.getArea(this.state.countryArea)}</span></li> : ''}
-                  {this.state.roundEnded ? <li><span className="label">Codes: </span><span className="value">{this.state.countryCodes}</span></li> : ''}
+                  {this.state.gameDifficulty === 'easy' ? <li><span className="label">Area (km<sup>2</sup>): </span><span className="value">{this.getArea(this.state.country.area)}</span></li> : ''}
+                  {this.state.roundEnded ? <li><span className="label">Codes: </span><span className="value">{this.getCountryCodes()}</span></li> : ''}
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Borders: </span><span className="value">{this.getBorders()}</span></li> : ''}
                   {this.state.numGuesses > 0 ? <Currency symbol={this.state.countryCurrencySymbol} currency={this.state.countryCurrency} roundEnded={this.state.roundEnded} /> : ''}
                   {this.state.numGuesses > 1 ? <li><span className="label">Language: </span><span className="value">{this.state.countryLanguage}</span></li> : ''}
-                  {this.state.numGuesses > 2 ? <li><span className="label">Capital City: </span><span className="value">{this.getCapitalCity(this.state.countryCapital)}</span></li> : ''}
+                  {this.state.numGuesses > 2 ? <li><span className="label">Capital City: </span><span className="value">{this.getCapitalCity(this.state.country.capital)}</span></li> : ''}
                 </ul>
                 {!this.state.numGuesses && !this.state.roundsPlayed ? <p className="text text--green">More clues will appear here after each&nbsp;guess</p> : ''}
               </div>
