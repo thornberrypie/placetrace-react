@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import CountryImage from './CountryImage'
 import Currency from './_Currency'
 import GameIntro from './_GameIntro'
-import Select from 'react-select';
+import Select from 'react-select'
 import SvgData from '../data/svgCountries.json'
 
-const apiAllCountries = 'https://restcountries.eu/rest/v2/all'
-const colorGreen = '#79c050'
+const ApiAllCountries = 'https://restcountries.eu/rest/v2/all'
+const ColorGreen = '#79c050'
 const CountriesToIgnore = ['um']
-const maxNumGuesses = 4
+const MaxNumGuesses = 4
 const Regions = [
     'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
 ]
@@ -55,10 +55,10 @@ class Game extends Component {
 
   buildSelectMenu(selectedRegion) {
     const Countries = this.state.countriesData
-    let countrySelectData = [];
-    let moveToBottom = [];
+    let countrySelectData = []
+    let moveToBottom = []
     let selectedCountryCode = this.countryMenu.current.props.value.value
-    let selectedCountryIsInRegion = false;
+    let selectedCountryIsInRegion = false
 
     // Create new array of objects for select menu
     Object.keys(Countries).forEach((key) => {
@@ -76,7 +76,7 @@ class Game extends Component {
       }
 
       if(country.alpha2Code.toLowerCase() === selectedCountryCode) {
-        selectedCountryIsInRegion = true;
+        selectedCountryIsInRegion = true
       }
 
       // Move Virgin Island to bottom of list
@@ -148,7 +148,7 @@ class Game extends Component {
   }
 
   getCapitalCity(capital) {
-    return capital ? capital : <span class="italic">no official capital</span>
+    return capital ? capital : <span className="italic">no official capital</span>
   }
 
   getCleanCountryName(n, suffix = false) {
@@ -165,12 +165,13 @@ class Game extends Component {
       case "Korea (Republic of)":
         n = suffix ? "South Korea (Republic of Korea)" : "South Korea"
       break
+      default:
     }
     return n
   }
 
   getCountriesFromAPI() {
-    fetch(apiAllCountries)
+    fetch(ApiAllCountries)
     .then(response => response.json())
     .then(data => {
       this.setState({
@@ -202,7 +203,7 @@ class Game extends Component {
   }
 
   getCountryName(n, suffix = false) {
-    return n ? this.getCleanCountryName(n, suffix) : <span class="italic">no name</span>
+    return n ? this.getCleanCountryName(n, suffix) : <span className="italic">no name</span>
   }
 
   getGameClass() {
@@ -218,7 +219,7 @@ class Game extends Component {
   }
 
   getGuessesLeft() {
-    let g = parseInt(maxNumGuesses) - parseInt(this.state.numGuesses)
+    let g = parseInt(MaxNumGuesses) - parseInt(this.state.numGuesses)
     g += g === 1 ? ' guess' : ' guesses'
     return g
   }
@@ -275,7 +276,7 @@ class Game extends Component {
 
         // Hard code Manat symbol (doesn't seem to work from API)
         if (item.name.indexOf(' manat') !== -1) {
-          currencySymbol = 'm';
+          currencySymbol = 'm'
         }
 
         currency += item.name + ', '
@@ -312,7 +313,7 @@ class Game extends Component {
 
     //Disable region clicking for easy game
     if(this.state.gameDifficulty === 'easy') {
-      return false;
+      return false
     }
     let selectedRegion = event.target.innerText
 
@@ -357,13 +358,13 @@ class Game extends Component {
     if(correctAnswer) {
       // Ensure all stats are showing
       this.setState({
-        numGuesses: maxNumGuesses
+        numGuesses: MaxNumGuesses
       })
       this.endRound()
     }
 
     // Finish round if player has no more guesses left and hasn't guessed correctly
-    if(numGuesses >= maxNumGuesses) {
+    if(numGuesses >= MaxNumGuesses) {
       this.endRound()
     }
   }
@@ -378,7 +379,7 @@ class Game extends Component {
               id = {data.id}
               countryCode = {this.state.countryCode}
               svgPaths = {data.svg}
-              color = {colorGreen}
+              color = {ColorGreen}
             />
           )
         } else {
@@ -419,10 +420,10 @@ class Game extends Component {
     }
 
     // Match up random country code with data item from API
-    let selectedIndex = -1;
+    let selectedIndex = -1
     this.state.countriesData.forEach((item, index) => {
       if(randomCountryCode === item.alpha2Code.toLowerCase()) {
-        selectedIndex = index;
+        selectedIndex = index
       }
     })
 

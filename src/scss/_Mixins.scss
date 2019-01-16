@@ -27,6 +27,19 @@
   }
 }
 
+@mixin animation-spin-reverse($speed) {
+  animation: animation-spin $speed ease-in-out;
+
+  @keyframes animation-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+}
+
 @mixin bp($class) {
   @if $class == xxs {
     @media (min-width: $bp-xxs) { @content; }

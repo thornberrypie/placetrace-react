@@ -33,11 +33,6 @@
     }
   }
 
-  @include bp(xs) {
-    justify-content: space-between;
-    padding: $space*2 $space;
-  }
-
   &-area {
     align-items: flex-start;
     display: flex;
