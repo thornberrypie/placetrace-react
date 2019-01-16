@@ -19,6 +19,7 @@ class Game extends Component {
     this.countryMenu = React.createRef()
     this.state = {
       correctAnswer: false,
+      country: {},
       countryArea: '',
       countryBorders: [],
       countryCapital: '',
@@ -26,6 +27,7 @@ class Game extends Component {
       countryCodes: '',
       countryCurrency: '',
       countryCurrencySymbol: '',
+      countryFlag: '',
       countryLanguage: '',
       countryName: '',
       countryPopulation: '',
@@ -200,6 +202,11 @@ class Game extends Component {
     }
 
     return codes
+  }
+
+  getCountryFlag() {
+    let flag = this.state.country.flag
+    return flag ? flag : ''
   }
 
   getCountryName(n, suffix = false) {
@@ -433,7 +440,13 @@ class Game extends Component {
       return false
     }
 
+
+
     let country = this.state.countriesData[selectedIndex]
+
+    this.setState({
+      country: country
+    })
 
     this.setCountryState(selectedIndex)
 
@@ -479,6 +492,13 @@ class Game extends Component {
           <div className="game-area">
             <div className="game-country">
               {this.showCountryImage()}
+              <div className={this.state.roundEnded ? "game-flag" : "hidden"}>
+                <img
+                  src={this.getCountryFlag()}
+                  alt={this.getCountryName()}
+                  width="180" height="120"
+                />
+              </div>
             </div>
             <form className="form game-form" id="game-form">
               {this.state.roundEnded || this.state.roundsPlayed ? '' : <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>}

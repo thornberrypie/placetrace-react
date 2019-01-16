@@ -152,11 +152,6 @@
       width: $content-min-width*1.2;
     }
 
-    @include bp(lg) {
-      height: $content-min-width*1.4;
-      width: $content-min-width*1.4;
-    }
-
     svg {
       height: auto;
       max-width: 100%;
