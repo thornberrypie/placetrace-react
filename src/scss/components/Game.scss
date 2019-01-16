@@ -37,11 +37,12 @@
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    margin: $space/2 auto $space*3;
+    margin: $space/2 auto $space*6;
 
     @include bp(xs) {
       flex-direction: row;
       justify-content: space-between;
+      margin-bottom: $space*3;
     }
   }
 
@@ -122,6 +123,22 @@
     }
   }
 
+  &-flag {
+    @include bp(sm) {
+      padding-top: $space;
+    }
+
+    img {
+      max-height: 80px;
+      max-width: 120px;
+
+      @include bp(md) {
+        max-height: 120px;
+        max-width: 180px;
+      }
+    }
+  }
+
   &-form {
     margin: 0 auto;
     padding: $space;
@@ -182,13 +199,17 @@
   }
 
   &-stats {
-    background: $color-white;
+    background: white;
     border-top: 1px solid $border-color;
-    bottom: $space*3;
+    bottom: $space*6;
     left: 0;
     padding: $space;
     position: fixed;
     width: 100%;
+
+    @include bp(xs) {
+      bottom: $space*4;
+    }
 
     span {
       display: block;
