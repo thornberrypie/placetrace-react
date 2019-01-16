@@ -7,6 +7,7 @@ import SvgData from '../data/svgCountries.json'
 
 const apiAllCountries = 'https://restcountries.eu/rest/v2/all'
 const colorGreen = '#79c050'
+const CountriesToIgnore = ['um']
 const maxNumGuesses = 4
 const Regions = [
     'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
@@ -54,27 +55,55 @@ class Game extends Component {
 
   buildSelectMenu(selectedRegion) {
     const Countries = this.state.countriesData
+    let countrySelectData = [];
+    let moveToBottom = [];
     let selectedCountryCode = this.countryMenu.current.props.value.value
     let selectedCountryIsInRegion = false;
-    let countrySelectData = [];
 
     // Create new array of objects for select menu
     Object.keys(Countries).forEach((key) => {
       let country = Countries[key]
+      let countryLabel = country.name
+
+      // Don't include countries that we have no map for
+      if(this.isExcludedCountry(country.alpha2Code)) {
+        return false
+      }
 
       // If region is selected allow only that region's countries
       if(selectedRegion && selectedRegion !== country.region) {
         return
       }
+
       if(country.alpha2Code.toLowerCase() === selectedCountryCode) {
         selectedCountryIsInRegion = true;
       }
 
+      // Move Virgin Island to bottom of list
+      if(countryLabel.toLowerCase().indexOf('virgin islands') !== -1) {
+        moveToBottom.push({
+          value: country.alpha2Code.toLowerCase(),
+          label: this.getCleanCountryName(countryLabel)
+        })
+        return
+      }
+
+      // Add to select menu if everything's cool
       countrySelectData.push({
         value: country.alpha2Code.toLowerCase(),
-        label: country.name
+        label: this.getCleanCountryName(countryLabel)
       })
     })
+
+    // Append any items we want at the bottom
+    if(moveToBottom) {
+      moveToBottom.forEach((c) => {
+        countrySelectData.push({
+          value: c.value,
+          label: c.label
+        })
+      })
+    }
 
     if(selectedRegion && !selectedCountryIsInRegion) {
       this.setPlaceholder(selectedRegion)
@@ -122,6 +151,24 @@ class Game extends Component {
     return capital ? capital : <span class="italic">no official capital</span>
   }
 
+  getCleanCountryName(n, suffix = false) {
+    switch(n) {
+      case "Côte d'Ivoire":
+        n = suffix ? "Ivory Coast (Côte d'Ivoire)" : "Ivory Coast"
+      break
+      case "Heard Island and McDonald Islands":
+        n = suffix ? "Heard Island and McDonald Islands" : "Heard Island"
+      break
+      case "Korea (Democratic People's Republic of)":
+        n = suffix ? "North Korea (Democratic People's Republic of Korea)" : "North Korea"
+      break
+      case "Korea (Republic of)":
+        n = suffix ? "South Korea (Republic of Korea)" : "South Korea"
+      break
+    }
+    return n
+  }
+
   getCountriesFromAPI() {
     fetch(apiAllCountries)
     .then(response => response.json())
@@ -154,8 +201,8 @@ class Game extends Component {
     return codes
   }
 
-  getCountryName(n) {
-    return n ? n : <span class="italic">no name</span>
+  getCountryName(n, suffix = false) {
+    return n ? this.getCleanCountryName(n, suffix) : <span class="italic">no name</span>
   }
 
   getGameClass() {
@@ -188,6 +235,13 @@ class Game extends Component {
     let score = this.state.roundsPlayed / this.state.totalNumGuesses * 100
     score = Math.round( score * 10 ) / 10
     return score.toString() + '%'
+  }
+
+  isExcludedCountry(code) {
+    if(CountriesToIgnore.includes(code.toLowerCase())) {
+      return true
+    }
+    return false
   }
 
   setPlaceholder(region) {
@@ -458,7 +512,7 @@ class Game extends Component {
                   ref={this.countryMenu}
                 />
               </div>
-              {this.state.roundEnded ? <div className="game-countryname" id="countryDisplayName">{this.getCountryName(this.state.countryName)}</div> : ''}
+              {this.state.roundEnded ? <div className="game-countryname" id="countryDisplayName">{this.getCountryName(this.state.countryName, true)}</div> : ''}
               {this.state.correctAnswer && this.state.roundEnded ? <h2 className="text-green">is correct!</h2> : ''}
               <div className="game-buttons">
                 {this.state.roundEnded ? <button onClick={this.handleRefreshCountry} className="button button--refresh">Next Round &gt;</button> : ''}
