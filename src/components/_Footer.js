@@ -17,7 +17,7 @@ import {
 const IconSize = 32
 const shareDescription = 'Learn all about the countries of our world with this fun and challenging game!'
 const ShareTitle = 'Place-Trace geo quiz game'
-const ShareURL = 'http://thornberrypie.com'
+const ShareURL = 'https://place-trace.com'
 
 class Footer extends Component {
   render() {
@@ -54,7 +54,7 @@ class Footer extends Component {
               body={shareDescription}
             />
           </div>
-          <div className="footer-copy">&copy; 2019 <a href="http://thornberrypie.com">ThornberryPie</a></div>
+          <div className="footer-copy">&copy; 2019 <a href="https://thornberrypie.com">ThornberryPie</a></div>
         </div>
       </footer>
     )
