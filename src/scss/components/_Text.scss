@@ -28,7 +28,7 @@ h1 {
   font-size: 1.3rem;
   padding-bottom: $space;
 
-  @include bp(xl) {
+  @include bp(lg) {
     font-size: 2rem;
     padding: $space*2 0;
   }
