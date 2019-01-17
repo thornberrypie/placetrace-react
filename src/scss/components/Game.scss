@@ -44,6 +44,10 @@
       justify-content: space-between;
       margin-bottom: $space*3;
     }
+
+    @include bp(xl) {
+      margin-bottom: $space*6;
+    }
   }
 
   &-clues {
@@ -74,6 +78,9 @@
       display: inline-block;
       padding-left: $label-width;
 
+      @include bp(xl) {
+        padding-left: $space*8;
+      }
     }
 
     .symbol {
@@ -94,7 +101,6 @@
 
     @include bp(sm) {
       margin: 0 0 $space;
-      min-width: 40%;
     }
 
     @include bp(md) {
@@ -110,6 +116,10 @@
 
     @include bp(md) {
       margin-top: $space;
+    }
+
+    @include bp(xl) {
+      font-size: 2.8rem;
     }
   }
 
@@ -164,9 +174,9 @@
       width: $content-min-width/1.15;
     }
 
-    @include bp(md) {
-      height: $content-min-width*1.2;
-      width: $content-min-width*1.2;
+    @include bp(xl) {
+      height: $content-min-width;
+      width: $content-min-width;
     }
 
     svg {

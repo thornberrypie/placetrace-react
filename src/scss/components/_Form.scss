@@ -11,8 +11,8 @@
     min-width: $content-min-width;
   }
 
-  @include bp(md) {
-    min-width: $content-min-width;
+  @include bp(lg) {
+    min-width: calc(#{$content-min-width} + #{$space}*12);
   }
 
   &-select {

@@ -3,7 +3,7 @@
   border-top: 1px solid $border-color;
   bottom: 0;
   left: 0;
-  padding: $space;
+  padding: $space/1.5;
   position: fixed;
   width: 100%;
 
@@ -28,6 +28,8 @@
   }
 
   @include bp(xs) {
+    padding: $space;
+
     & > .flex {
       flex-direction: row-reverse;
     }
