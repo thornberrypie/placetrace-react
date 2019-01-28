@@ -1,0 +1,27 @@
+.game-image {
+  height: $content-min-width/1.5;
+  margin: 0 auto;
+  width: $content-min-width/1.5;
+  max-width: 100%;
+
+  @include bp(xs) {
+    height: $content-min-width/2;
+    width: $content-min-width/2;
+  }
+
+  @include bp(sm) {
+    height: $content-min-width/1.15;
+    width: $content-min-width/1.15;
+  }
+
+  @include bp(xl) {
+    height: $content-min-width;
+    width: $content-min-width;
+  }
+
+  svg {
+    height: auto;
+    max-width: 100%;
+    vertical-align: top;
+  }
+}

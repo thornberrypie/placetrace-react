@@ -8,12 +8,8 @@
   }
 
   &-logo {
-    height: $logo-height;
+    height: $logo-height/2;
     margin: $space $space/2 $space 0;
-
-    @include bp(sm) {
-      margin-right: $space;
-    }
   }
 
   &-logolink {
@@ -25,12 +21,6 @@
     justify-content: center;
     text-decoration: none;
 
-    @include bp(sm) {
-      justify-content: flex-start;
-      position: relative;
-      right: 0.75em;
-    }
-
     &:hover {
       .header-logo {
         @include animation-spin(0.5s);
@@ -41,13 +31,38 @@
   &-title {
     color: $color-white;
     font-family: $font-heading;
-    font-size: 1.8rem;
-    line-height: $logo-height;
+    font-size: 1.4rem;
+    line-height: $logo-height/2;
     padding: $space 0;
     white-space: nowrap;
+  }
 
-    @include bp(xs) {
+  @include bp(xs) {
+    &-logo {
+      height: $logo-height/1.5;
+    }
+
+    &-title {
+      font-size: 1.8rem;
+      line-height: $logo-height/1.5;
+    }
+  }
+
+  @include bp(sm) {
+    &-logo {
+      height: $logo-height;
+      margin-right: $space;
+    }
+
+    &-logolink {
+      justify-content: flex-start;
+      position: relative;
+      right: 0.75em;
+    }
+
+    &-title {
       font-size: 2.2rem;
+      line-height: $logo-height;
     }
   }
 }

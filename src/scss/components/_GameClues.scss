@@ -1,0 +1,43 @@
+.game-clues {
+  min-height: $space/2;
+
+  li {
+    @include animation-appear(0.5s, $color-blue);
+    color: $color-blue-text;
+    display: block;
+    font-family: $font-heading;
+    line-height: 1.5;
+    padding: $space/3 0;
+    position: relative;
+  }
+
+  .label {
+    display: inline-block;
+    font-family: $font-main;
+    left: 0;
+    line-height: 1.3;
+    min-width: $label-width;
+    position: absolute;
+    top: $space/2;
+  }
+
+  .value {
+    color: $color-green-text;
+    display: inline-block;
+    padding-left: $label-width;
+
+    @include bp(xl) {
+      padding-left: $space*8;
+    }
+  }
+
+  .symbol {
+    color: $color-green;
+    font-weight: bold;
+    padding-right: $space/3;
+  }
+
+  .text {
+    padding-top: $space;
+  }
+}

@@ -492,7 +492,7 @@ class Game extends Component {
               </div>
             </div>
             <form className="form game-form" id="game-form">
-              {this.state.roundEnded || this.state.roundsPlayed ? '' : <h3 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h3>}
+              {this.state.roundEnded || this.state.roundsPlayed ? '' : <h4 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h4>}
               <div className="game-clues">
                 <ul>
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Region: </span><span className="value">{this.getRegion(this.state.country.region)}</span></li> : ''}

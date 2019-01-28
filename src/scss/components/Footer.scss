@@ -2,8 +2,9 @@
   background: $color-white;
   border-top: 1px solid $border-color;
   bottom: 0;
+  font-size: 0.9rem;
   left: 0;
-  padding: $space/1.5;
+  padding: $space/2;
   position: fixed;
   width: 100%;
 
@@ -15,19 +16,33 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    padding-bottom: $space;
+    padding-bottom: $space/2;
+
+    @include bp(sm) {
+      padding-bottom: $space;
+    }
 
     & > div {
       cursor: pointer;
-      margin: 0 $space/2;
+      margin: 0 $space/4;
 
       &:hover {
         @include animation-spin(0.5s);
       }
     }
+
+    div {
+      max-height: 18px;
+    }
+
+    svg {
+      max-height: 18px;
+      max-width: 18px;
+    }
   }
 
   @include bp(xs) {
+    font-size: 1rem;
     padding: $space;
 
     & > .flex {
@@ -41,10 +56,30 @@
       & > div {
         margin: 0 0 0 $space;
       }
+
+      div {
+        max-height: 24px;
+      }
+
+      svg {
+        max-height: 24px;
+        max-width: 24px;
+      }
     }
 
     &-copy {
       padding-top: $space/2;
+    }
+  }
+
+  @include bp(sm) {
+    svg {
+      max-height: 32px;
+      max-width: 32px;
+    }
+
+    div {
+      max-height: 32px;
     }
   }
 }
