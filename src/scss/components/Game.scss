@@ -140,13 +140,13 @@
   &-stats {
     background: white;
     border-top: 1px solid $border-color;
-    bottom: $space*6;
+    bottom: $space*3;
     left: 0;
     padding: $space;
     position: fixed;
     width: 100%;
 
-    @include bp(xs) {
+    @include bp(sm) {
       bottom: $space*4;
     }
 
