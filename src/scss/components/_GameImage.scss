@@ -1,13 +1,8 @@
 .game-image {
-  height: $content-min-width/1.5;
+  height: $content-min-width/2;
   margin: 0 auto;
-  width: $content-min-width/1.5;
+  width: $content-min-width/2;
   max-width: 100%;
-
-  @include bp(xs) {
-    height: $content-min-width/2;
-    width: $content-min-width/2;
-  }
 
   @include bp(sm) {
     height: $content-min-width/1.15;

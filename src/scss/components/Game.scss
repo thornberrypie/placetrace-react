@@ -52,11 +52,12 @@
 
   &-country {
     margin: 0 auto $space;
-    min-height: $content-min-width/1.5;
+    min-height: $content-min-width/2;
     text-align: center;
 
     @include bp(sm) {
       margin: 0 0 $space;
+      min-height: $content-min-width/1.15;
     }
 
     @include bp(md) {
@@ -129,7 +130,7 @@
 
   &-select {
     font-size: 0.9rem;
-    padding-top: $space;
+    padding: $space/2 0;
 
     @include bp(sm) {
       font-size: 1rem;

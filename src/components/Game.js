@@ -493,6 +493,15 @@ class Game extends Component {
             </div>
             <form className="form game-form" id="game-form">
               {this.state.roundEnded || this.state.roundsPlayed ? '' : <h4 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h4>}
+              <div className={this.state.roundEnded ? 'hidden' : 'game-select'}>
+                <Select
+                  value={this.state.selectedCountryCode}
+                  onChange={this.handleCountryChange}
+                  options={this.state.countrySelectData}
+                  placeholder={this.state.selectPlaceholder}
+                  ref={this.countryMenu}
+                />
+              </div>
               <div className="game-clues">
                 <ul>
                   {this.state.gameDifficulty === 'easy' ? <li><span className="label">Region: </span><span className="value">{this.getRegion(this.state.country.region)}</span></li> : ''}
@@ -514,15 +523,6 @@ class Game extends Component {
                     {this.showRegions()}
                   </div>
                 </div>
-              </div>
-              <div className={this.state.roundEnded ? 'hidden' : 'game-select'}>
-                <Select
-                  value={this.state.selectedCountryCode}
-                  onChange={this.handleCountryChange}
-                  options={this.state.countrySelectData}
-                  placeholder={this.state.selectPlaceholder}
-                  ref={this.countryMenu}
-                />
               </div>
               {this.state.roundEnded ? <div className="game-countryname" id="countryDisplayName">{this.getCountryName(this.state.countryName, true)}</div> : ''}
               {this.state.correctAnswer && this.state.roundEnded ? <h2 className="text-green">is correct!</h2> : ''}
