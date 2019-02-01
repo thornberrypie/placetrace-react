@@ -42,7 +42,7 @@
     @include bp(xs) {
       flex-direction: row;
       justify-content: space-between;
-      margin-bottom: $space*3;
+      margin-bottom: $space*4.5;
     }
 
     @include bp(xl) {
