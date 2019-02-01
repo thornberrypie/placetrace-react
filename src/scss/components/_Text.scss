@@ -29,6 +29,11 @@ h1 {
   padding-bottom: $space;
 
   @include bp(lg) {
+    font-size: 1.6rem;
+    padding: $space*2 0;
+  }
+
+  @include bp(xl) {
     font-size: 2rem;
     padding: $space*2 0;
   }

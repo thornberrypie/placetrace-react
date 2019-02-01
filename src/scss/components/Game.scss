@@ -120,7 +120,7 @@
     text-align: center;
 
     @include bp(sm) {
-      max-width: $content-min-width;
+      max-width: calc(#{$content-min-width} + #{$space});
     }
 
     @include bp(lg) {
