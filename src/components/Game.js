@@ -152,14 +152,14 @@ class Game extends Component {
       case "Côte d'Ivoire":
         n = suffix ? "Ivory Coast (Côte d'Ivoire)" : "Ivory Coast"
       break
-      case "Heard Island and McDonald Islands":
-        n = suffix ? "Heard Island and McDonald Islands" : "Heard Island"
-      break
       case "Korea (Democratic People's Republic of)":
         n = suffix ? "North Korea (Democratic People's Republic of Korea)" : "North Korea"
       break
       case "Korea (Republic of)":
         n = suffix ? "South Korea (Republic of Korea)" : "South Korea"
+      break
+      case "Lao People's Democratic Republic":
+        n = suffix ? "Laos (Lao People's Democratic Republic)" : "Laos"
       break
       default:
     }
