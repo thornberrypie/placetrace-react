@@ -30,6 +30,34 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"><div style="font-family:Verdana,Geneva,sans-serif; font-size:1.6rem; line-height: 1.4; text-align:center;"><p><img style="margin:2em auto 0" src="images/world.png" alt="Please wait... We're gathering data on all the countries..."/></p><p>Please wait...<br/>We're gathering data<br/>on all the countries...</p></div></div>
+    <style>
+      .loading {
+        font-family: Verdana,Geneva,sans-serif;
+        font-size: 1.6rem;
+        line-height: 1.4;
+        text-align: center;
+      }
+      .loading img {
+        animation: animation-spin 0.666s linear infinite;
+        height: 66px;
+        margin:2em auto 0;
+        width: 66px;
+      }
+
+      @keyframes animation-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <div id="root">
+      <div class="loading">
+        <p><img src="images/world.png" alt="Please wait... We're getting the latest info on all the countries..."/></p>
+        <p>Please wait...<br/>We're getting the latest info<br/>on all the countries...</p>
+      </div>
+    </div>
   </body>
 </html>
