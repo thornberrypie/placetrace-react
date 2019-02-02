@@ -34,7 +34,6 @@ h1 {
   }
 
   @include bp(xl) {
-    font-size: 2rem;
     padding: $space*2 0;
   }
 }
