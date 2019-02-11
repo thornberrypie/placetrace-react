@@ -37,11 +37,16 @@
         line-height: 1.4;
         text-align: center;
       }
-      .loading img {
+      .loading-image {
         animation: animation-spin 0.666s linear infinite;
+      }
+      .loading img {
         height: 66px;
         margin:2em auto 0;
         width: 66px;
+      }
+      .loading-text {
+        padding: 0 1rem;
       }
 
       @keyframes animation-spin {
@@ -52,11 +57,19 @@
           transform: rotate(360deg);
         }
       }
+      @keyframes animation-opacity {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
     </style>
     <div id="root">
       <div class="loading">
-        <p><img src="images/world.png" alt="Please wait... We're getting the latest info on all the countries..."/></p>
-        <p>Please wait...<br/>We're getting the latest info<br/>on all the countries...</p>
+        <p class="loading-image"><img src="images/world.png" alt="Please wait... We're getting the latest info on all the countries..."/></p>
+        <p class="loading-text">Please wait...<br/>We're getting the latest info<br/>on all the countries...</p>
       </div>
     </div>
   </body>
