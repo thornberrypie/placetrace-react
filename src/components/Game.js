@@ -494,12 +494,14 @@ class Game extends Component {
             <form className="form game-form" id="game-form">
               {this.state.roundEnded || this.state.roundsPlayed ? '' : <h4 className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</h4>}
               <div className={this.state.roundEnded ? 'hidden' : 'game-select'}>
+                <label className="hide" htmlFor="countrySelectMenu">{this.state.selectPlaceholder}</label>
                 <Select
-                  value={this.state.selectedCountryCode}
+                  inputId="countrySelectMenu"
                   onChange={this.handleCountryChange}
                   options={this.state.countrySelectData}
                   placeholder={this.state.selectPlaceholder}
                   ref={this.countryMenu}
+                  value={this.state.selectedCountryCode}
                 />
               </div>
               <div className="game-clues">

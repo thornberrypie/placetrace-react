@@ -40,6 +40,11 @@
   display: none;
 }
 
+.hide {
+  position: absolute;
+  z-index: -9999em;
+}
+
 .list {
   display: block;
   margin: $space 0 $space;
