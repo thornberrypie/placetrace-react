@@ -1,5 +1,10 @@
 .game-clues {
   min-height: $space/2;
+  padding: $space 0 0 $space/1.5;
+
+  @include bp(xxs) {
+    padding: $space/2 0 0 $space/1.5;
+  }
 
   li {
     @include animation-appear(0.5s, $color-blue);

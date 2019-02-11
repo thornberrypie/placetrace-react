@@ -39,6 +39,11 @@
       max-height: 18px;
       max-width: 18px;
     }
+
+    &-buttontext {
+      position: absolute;
+      left: -9999em;
+    }
   }
 
   @include bp(xs) {

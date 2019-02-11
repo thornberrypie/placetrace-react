@@ -2,9 +2,13 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: $space;
+  padding: 0;
   position: relative;
   text-align: left;
+
+  @include bp(xs) {
+    padding: $space;
+  }
 
   &--ready {
     .button.button--refresh,
@@ -138,6 +142,10 @@
   &-select {
     font-size: 0.9rem;
     padding: $space/2 0;
+
+    div {
+      color: $color-green-text;
+    }
 
     @include bp(sm) {
       font-size: 1rem;
