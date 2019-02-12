@@ -492,7 +492,7 @@ class Game extends Component {
               </div>
             </div>
             <form className="form game-form" id="game-form">
-              {this.state.roundEnded || this.state.roundsPlayed ? '' : <p className="text--green"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</p>}
+              {this.state.roundEnded || this.state.roundsPlayed ? '' : <p className="text--brown"><span className="text-icon">&larr;</span><span className="text-icon text-icon--mobile">&uarr;</span> Which country is this?</p>}
               <div className={this.state.roundEnded ? 'hidden' : 'game-select'}>
                 <label className="hide" htmlFor="countrySelectMenu">{this.state.selectPlaceholder}</label>
                 <Select
@@ -516,11 +516,11 @@ class Game extends Component {
                   {this.state.numGuesses > 1 ? <li><span className="label">Language: </span><span className="value">{this.state.countryLanguage}</span></li> : ''}
                   {this.state.numGuesses > 2 ? <li><span className="label">Capital City: </span><span className="value">{this.getCapitalCity(this.state.country.capital)}</span></li> : ''}
                 </ul>
-                {!this.state.numGuesses && !this.state.roundsPlayed ? <p className="text text--green">More clues will appear here after each&nbsp;guess</p> : ''}
+                {!this.state.numGuesses && !this.state.roundsPlayed ? <p className="text text--brown">More clues will appear here after each&nbsp;guess</p> : ''}
               </div>
               <div className={this.state.roundEnded ? 'hidden' : 'game-section game-filter'}>
                 <div className="game-filter-buttons">
-                  <p className="text text--green hard">Filter countries by region:</p>
+                  <p className="text text--brown hard">Filter countries by region:</p>
                   <div className="game-filter-list clearfix">
                     {this.showRegions()}
                   </div>

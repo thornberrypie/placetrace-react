@@ -14,7 +14,7 @@ a {
   text-decoration: none;
 
   &:focus, &:hover {
-    color: $color-green;
+    color: $color-brown-text;
   }
 }
 
@@ -23,7 +23,7 @@ h1, h2, h3 {
 }
 
 h1 {
-  color: $color-green-text;
+  color: $color-brown-text;
   font-family: $font-heading;
   font-size: 1.3rem;
   padding-bottom: $space;
@@ -59,6 +59,10 @@ sup {
 
   &--blue {
     color: $color-blue-text;
+  }
+
+  &--brown {
+    color: $color-brown-text;
   }
 
   &--green {
