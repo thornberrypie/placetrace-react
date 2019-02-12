@@ -131,7 +131,7 @@
     text-align: center;
 
     @include bp(sm) {
-      max-width: calc(#{$content-min-width} + #{$space});
+      max-width: calc(#{$content-min-width} + #{$space*2});
     }
 
     @include bp(lg) {
@@ -141,6 +141,7 @@
 
   &-select {
     font-size: 0.9rem;
+    margin-top: $space/2;
     padding: $space/2 0;
 
     div {

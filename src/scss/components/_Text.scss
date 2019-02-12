@@ -38,24 +38,6 @@ h1 {
   }
 }
 
-h2 {
-  font-size: 1.2rem;
-}
-
-h3 {
-  font-size: 1.1rem;
-  padding-bottom: $space/2;
-
-  @include bp(xl) {
-    font-size: 1.4rem;
-  }
-}
-
-h4 {
-  font-size: 1rem;
-  padding-bottom: $space/2;
-}
-
 sup {
   font-size: 0.6rem;
   position: relative;
@@ -81,6 +63,10 @@ sup {
 
   &--green {
     color: $color-green-text;
+  }
+
+  &-large {
+    font-size: 1.2rem;
   }
 
   &-icon {
