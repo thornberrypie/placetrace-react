@@ -127,7 +127,7 @@
   }
 
   &-intro {
-    padding: $space $space 0;
+    padding: $space*2 $space $space;
     text-align: center;
 
     @include bp(sm) {
@@ -137,6 +137,12 @@
     @include bp(lg) {
       max-width: $content-mid-width;
     }
+  }
+
+  &-introtext {
+    color: $color-brown-text;
+    font-family: $font-heading;
+    font-size: 1.3rem;
   }
 
   &-select {

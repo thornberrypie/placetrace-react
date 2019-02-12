@@ -22,22 +22,6 @@ h1, h2, h3 {
   line-height: 1.3;
 }
 
-h1 {
-  color: $color-brown-text;
-  font-family: $font-heading;
-  font-size: 1.3rem;
-  padding-bottom: $space;
-
-  @include bp(lg) {
-    font-size: 1.6rem;
-    padding: $space*2 0;
-  }
-
-  @include bp(xl) {
-    padding: $space*2 0;
-  }
-}
-
 sup {
   font-size: 0.6rem;
   position: relative;

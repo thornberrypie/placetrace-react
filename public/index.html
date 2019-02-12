@@ -30,6 +30,7 @@
         font-family: Verdana,Geneva,sans-serif;
         font-size: 1.6rem;
         line-height: 1.4;
+        margin-top: 3rem;
         text-align: center;
       }
       .loading-image {
@@ -42,6 +43,13 @@
       }
       .loading-text {
         padding: 0 1rem;
+      }
+
+      @media only screen and (min-width: 30em) {
+        .loading {
+          background-color: lightblue;
+          margin: 3rem;
+        }
       }
 
       @keyframes animation-spin {
@@ -69,7 +77,7 @@
     <div id="root">
       <div class="loading">
         <p class="loading-image"><img src="images/world.png" alt="Please wait... We're getting the latest info on all the countries..."/></p>
-        <p class="loading-text">Please wait...<br/>We're getting the latest info<br/>on all the countries...</p>
+        <p class="loading-text">Please wait...<br/>We're getting the latest&nbsp;info on all the&nbsp;countries...</p>
       </div>
     </div>
   </body>
