@@ -483,7 +483,7 @@ class Game extends Component {
           <div className="game-area">
             <div className="game-country">
               {this.showCountryImage()}
-              <div className={this.state.roundEnded && this.state.country.flag ? "game-flag" : "hidden"}>
+              <div className={this.state.country.flag ? "game-flag" : "hidden"}>
                 <img
                   src={this.getCountryFlag()}
                   alt={this.getCountryName()}
