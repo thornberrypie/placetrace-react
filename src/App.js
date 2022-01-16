@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <div className="wrapper">
-        <Header title="Place-Trace"/>
+        <Header title="Place-Trace.com"/>
         <main className="main">
           <Game/>
         </main>

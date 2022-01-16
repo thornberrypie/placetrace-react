@@ -41,10 +41,7 @@
 }
 
 @mixin bp($class) {
-  @if $class == xxs {
-    @media (min-width: $bp-xxs) { @content; }
-  }
-  @else if $class == xs {
+  @if $class == xs {
     @media (min-width: $bp-xs) { @content; }
   }
   @else if $class == sm {

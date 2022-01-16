@@ -3,10 +3,12 @@
   border-radius: $border-radius;
   color: $color-blue-text;
   cursor: pointer;
+  display: inline-block;
   font-size: 0.9rem;
   font-weight: 600;
   line-height: 1;
-  padding: $space/2.5 $space/2 $space/3;
+  margin: $space 0 0;
+  padding: $space/2 $space;
 
   @include bp(lg) {
     font-size: 1.2rem;
@@ -14,8 +16,8 @@
   }
 
   &:hover {
-    border-color: $color-green;
-    color: $color-green-text;
+    background: $color-green;
+    color: $color-white;
   }
 
   &:focus,
@@ -42,34 +44,6 @@
     &:last-child {
       margin-right: 0;
     }
-  }
-}
-
-.game-buttons {
-  padding: $space 0;
-
-  .game--finished & {
-    margin-bottom: $space
-  }
-
-  @include bp(xs) {
-    padding-right: 0;
-  }
-
-  .game--ready & {
-    text-align: center;
-  }
-
-  .button {
-    margin-right: $space;
-
-    @include bp(xs) {
-      margin-right: 0;
-    }
-  }
-
-  .game--ready & {
-    text-align: center;
   }
 }
 

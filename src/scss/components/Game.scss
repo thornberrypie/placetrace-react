@@ -10,40 +10,13 @@
     padding: $space;
   }
 
-  &--ready {
-    .button.button--refresh,
-    .game-area {
-      display: none;
-    }
-  }
-
-  &--started,
-  &--finished {
-    .button.button--start,
-    .game-intro {
-      display: none;
-    }
-  }
-
-  &--easy {
-    .hard {
-      display: none;
-    }
-  }
-
-  &--hard {
-    .easy {
-      display: none;
-    }
-  }
-
   &-area {
     align-items: flex-start;
     display: flex;
     flex-direction: column;
     margin: $space/2 auto $space*6;
 
-    @include bp(xs) {
+    @include bp(sm) {
       flex-direction: row;
       justify-content: space-between;
       margin-bottom: $space*4.5;
@@ -76,7 +49,7 @@
     color: $color-green-text;
     font-size: 2.2rem;
     line-height: 1.2;
-    margin: $space 0;
+    margin: $space 0 0;
 
     @include bp(md) {
       margin-top: $space;
@@ -91,26 +64,16 @@
     border-top: 1px solid $border-color;
     margin-bottom: $space;
     padding-top: $space;
-
-    .game--easy & {
-      display: none;
-    }
   }
 
   &-flag {
-    padding: $space*2 $space 0;
-    text-align: left;
-
-    @include bp(sm) {
-      padding-top: $space*3.3;
-      text-align: center;
-    }
+    padding: $space*2 0;
 
     img {
-      max-height: 120px;
-      max-width: 180px;
+      max-height: 80px;
+      max-width: 120px;
 
-      @include bp(md) {
+      @include bp(sm) {
         max-height: 120px;
         max-width: 180px;
       }
@@ -120,10 +83,76 @@
   &-form {
     margin: 0 auto;
     padding: $space;
+
+    li {
+      @include animation-appear(0.5s, $color-blue);
+      color: $color-blue-text;
+      display: block;
+      font-family: $font-heading;
+      line-height: 1.5;
+      padding: $space/3 0;
+      position: relative;
+    }
+
+    .label {
+      display: inline-block;
+      font-family: $font-main;
+      left: 0;
+      line-height: 1.3;
+      min-width: $label-width;
+      position: absolute;
+      top: $space/2;
+    }
+
+    .value {
+      color: $color-green-text;
+      padding-left: $label-width;
+
+      @include bp(xl) {
+        padding-left: $space*8;
+      }
+    }
+
+    .currencyName {
+      display: none;
+
+      .game--roundEnded & {
+        display: inline;
+      }
+    }
+
+    .symbol {
+      font-weight: bold;
+      padding-right: $space/3;
+    }
+
+    .text {
+      padding-top: $space;
+    }
+  }
+
+  &-clues {
+    margin-top: $space;
   }
 
   &-guesses {
-    text-align: left;
+    border-top: 1px solid $color-blue;
+    margin-top: $space;
+    padding-top: $space;
+
+    .list {
+      margin: $space/2 0;
+
+      .item {
+        color: $color-red;
+        margin: 0;
+        padding: 0;
+
+        &--correct {
+          color: $color-green;
+        }
+      }
+    }
   }
 
   &-intro {
@@ -191,6 +220,7 @@
   }
 
   &-zone {
+    padding: $space*2 0;
     width: 100%;
   }
 }

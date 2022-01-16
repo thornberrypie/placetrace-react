@@ -13,10 +13,6 @@
     width: auto;
   }
 
-  @include bp(lg) {
-    min-width: calc(#{$content-min-width} + #{$space}*12);
-  }
-
   &-select {
     div {
       border-color: $border-color;
