@@ -162,9 +162,9 @@ class Game extends Component {
     return guessedCountries.includes(country.name.common)
   }
 
-  handleCountryChange = (event) => {
+  handleCountrySelect = (event) => {
     const { guessedCountries, roundsPlayed, totalNumGuesses } = this.state
-
+console.log('event', event)
     // Don't do anything if this country has already been chosen
     if(guessedCountries.length > 0 && guessedCountries.includes(event.label)) {
       this.clearSelectValue()
@@ -172,6 +172,7 @@ class Game extends Component {
     }
 
     const selectedCountryCode = event.value
+    console.log('selectedCountryCode', selectedCountryCode)
     const updatedGuessedCountries = [...guessedCountries, event.label]
 
     // Finish round if user has selected the correct answer or player has run out of guesses
@@ -242,8 +243,9 @@ class Game extends Component {
                   <>
                     <label className="hide" htmlFor="countrySelectMenu">{selectPlaceholder}</label>
                     <Select
+                      className="form-countrySelect"
                       inputId="countrySelectMenu"
-                      onChange={this.handleCountryChange}
+                      onChange={this.handleCountrySelect}
                       options={this.countrySelectData()}
                       placeholder={selectPlaceholder}
                       ref={this.countryMenu}

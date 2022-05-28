@@ -3,6 +3,10 @@ import React from 'react'
 import Currency from './Currency'
 
 const Clues = ({ country, numGuesses, roundEnded }) => {
+  console.log('country', country)
+  if(!country) {
+    return null
+  }
   const { capital, languages } = country
   const languagesText = Object.keys(languages).map((key) => languages[key]).join(', ')
 

@@ -1,13 +1,10 @@
 .footer {
   background: $color-white;
-  border-top: 1px solid $border-color;
   bottom: 0;
   color: $color-brown-text;
   font-size: 0.9rem;
   left: 0;
   padding: $space/2;
-  position: fixed;
-  width: 100%;
 
   & > .flex {
     flex-direction: column;
@@ -19,7 +16,7 @@
     justify-content: center;
     padding-bottom: $space/2;
 
-    @include bp(sm) {
+    @include bp(md) {
       padding-bottom: $space;
     }
 
@@ -78,7 +75,7 @@
     }
   }
 
-  @include bp(sm) {
+  @include bp(md) {
     svg {
       max-height: 32px;
       max-width: 32px;

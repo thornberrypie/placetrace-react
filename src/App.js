@@ -10,9 +10,7 @@ class App extends Component {
     return (
       <div className="wrapper">
         <Header title="Place-Trace.com"/>
-        <main className="main">
           <Game/>
-        </main>
         <Footer/>
       </div>
     );

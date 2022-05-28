@@ -48,7 +48,7 @@
     }
   }
 
-  @include bp(sm) {
+  @include bp(md) {
     &-logo {
       height: $logo-height;
       margin-right: $space;

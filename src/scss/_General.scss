@@ -1,14 +1,15 @@
 // Layout
-.wrapper {
-  min-width: $content-min-width;
-  text-align: center;
+#root {
+  height: 100%;
 }
 
-// Helper classes
-.clearfix:after {
-  content: "";
-  clear: both;
-  display: table;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  min-width: $content-min-width;
+  text-align: center;
 }
 
 .flex {

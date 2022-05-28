@@ -8,13 +8,13 @@ export default function Currency({ country, roundEnded }) {
         {
           Object.values(country.currencies).map((currency) => {
             return (
-              <>
+              <div key={currency.name}>
                 <span className="currency" key={currency.name}>
                   <span className="symbol">{currency.symbol}</span>
                   <span className="currencyName">{currency.name}</span>
                 </span>
                 {roundEnded && <br />}
-              </>
+              </div>
             )
           })
         }

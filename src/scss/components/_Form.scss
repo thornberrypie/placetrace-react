@@ -5,11 +5,14 @@
   width: 100%;
 
   @include bp(xs) {
-    padding: $space/2 0 $space $space;
+    padding: $space/2 $space*2 $space $space;
   }
 
-  @include bp(sm) {
-    min-width: $content-min-width;
+  @include bp(md) {
+    width: 60%;
+  }
+
+  &-countrySelect {
     width: auto;
   }
 
